@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         body {
             font: 14px sans-serif;
             text-align: center;
-            background-color: #5fb896;
+            background-color: #a3e4d7;
         }
 
         .icon-bar {

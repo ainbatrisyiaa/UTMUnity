@@ -96,7 +96,7 @@ mysqli_close($link);
     <style>
     body {
             font: solid black;
-            background-color: #5fb896;
+            background-color: #a3e4d7;
         }
     </style>
 </head>

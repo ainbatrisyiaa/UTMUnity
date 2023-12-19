@@ -13,7 +13,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;
   text-align:center;}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee, .fa-university {font-size:200px}
-header{background-color:#5fb896;}
+header{background-color:#a3e4d7;}
 </style>
 </head>
 <body>
