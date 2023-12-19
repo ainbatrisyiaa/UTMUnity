@@ -43,7 +43,7 @@
 
     <nav>
         <a href="#">Events</a>
-        <a href="#">Donation</a>
+        <a href="admin_page.php">Donation</a>
         <a href="#">Feedback</a>
         <!-- Add more navigation links as needed -->
     </nav>
