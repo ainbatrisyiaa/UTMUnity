@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         body {
             font: 14px sans-serif;
             text-align: center;
-            background-color: #5fb896;
+            background-color: #a3e4d7;
         }
 
         .icon-bar {
@@ -114,7 +114,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <div class="label">Events</div>
             </a>
             <!-- Clickable Image 2 -->
-            <a href="donation.php">
+            <a href="main_page.php">
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>

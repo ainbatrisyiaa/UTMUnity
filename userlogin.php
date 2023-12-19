@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body{ font: 14px sans-serif; background-color: #5fb896; }
+        body{ font: 14px sans-serif; background-color: #a3e4d7; }
         .wrapper{ width: 500px; padding: 30px; border: 2px solid #888; margin: 10% auto; background: white; }
 
         .button-wrapper {
