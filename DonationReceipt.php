@@ -30,13 +30,13 @@
     }
 
     h2 {
-        color: #8d4004;
+        color: #048d42;
         margin-bottom: 10px;
     }
 
     .thank-you {
         font-size: 18px;
-        color: #8d4004;
+        color: #048d42;
         font-weight: bold;
         margin-bottom: 20px;
     }
