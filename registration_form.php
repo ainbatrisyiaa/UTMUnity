@@ -18,34 +18,39 @@
 			<form action="process_form.php" method="post" class="form">
 				<div class="input-box">
 					<label>Full Name</label>
-					<input type="text" placeholder="Enter full name" required />
+					<input type="text" name="full_name" placeholder="Enter full name" required />
 				</div>
 				
 				<div class="input-box">
 					<label>Email Address</label>
-					<input type="text" placeholder="Enter email address" required />
+					<input type="text" name="email" placeholder="Enter email address" required />
 				</div>
 				
 				<div class="column">
 					<div class="input-box">
 					<label>Phone Number</label>
-					<input type="number" placeholder="Enter phone number" required />
+					<input type="number" name="phone_number" placeholder="Enter phone number" required />
 					</div>
+				</div>
+				
+				<div class="input-box">
+					<label>Event Name</label>
+					<input type="text" name="event_name" placeholder="Enter event name" required />
 				</div>
 				
 				<div class="participant-box">
 					<label>Participant</label>
 					<div class="participant-option">
 						<div class="participant">
-							<input type="radio" id="check-UTMStudent" name="participant" checked />
+							<input type="radio" id="check-UTMStudent" name="participant"  value="UTM Student" checked />
 							<label for="check-UTMStudent">UTM Student</label>
 						</div>
 						<div class="participant">
-							<input type="radio" id="check-staff" name="participant" />
+							<input type="radio" id="check-staff" name="participant" value="Staff"  />
 							<label for="check-staff">Staff</label>
 						</div>
 						<div class="participant">
-							<input type="radio" id="check-UTMVolunteerClub" name="participant" />
+							<input type="radio" id="check-UTMVolunteerClub" name="participant" value="UTM Volunteer Club" />
 							<label for="check-UTMVolunteerClub">UTM Volunteer Club</label>
 						</div>
 					</div>
@@ -54,19 +59,19 @@
 				<div class="input-box">
 					<label>Student ID (for UTM students only) <br>
 					*Put N/A if not applicable</label>
-					<input type="text" placeholder="Enter ID" required />
+					<input type="text" name="student_id" placeholder="Enter ID" required />
 				</div>
 				
 				<div class="input-box">
 					<label>Staff ID (for UTM staffs only) <br>
 					*Put N/A if not applicable</label>
-					<input type="text" placeholder="Enter ID" required />
+					<input type="text" name="staff_id" placeholder="Enter ID" required />
 				</div>
 				
 				<div class="input-box faculty">
 					<label>Faculty</label>
 						<div class="select-box">
-							<select>
+							<select name="faculty">
 								<option hidden>Faculty</option>
 								<option>FKA</option>
 								<option>FKM</option>
@@ -85,7 +90,7 @@
 					<label>Medical Information (Please specify any allergies or medical <br>
 					conditions) <br>
 					*Put N/A if not applicable</label>
-					<input type="text" placeholder="Enter medical information" required />
+					<input type="text" name="medical_info" placeholder="Enter medical information" required />
 				</div>
 				
 				<button>Submit</button>

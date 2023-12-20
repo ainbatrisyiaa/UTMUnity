@@ -21,10 +21,11 @@ $student_id = $_POST['student_id'];
 $staff_id = $_POST['staff_id'];
 $faculty = $_POST['faculty'];
 $medical_info = $_POST['medical_info'];
+$event_name = $_POST['event_name'];
 
 // Insert data into database
 $sql = "INSERT INTO registration (full_name, email, phone_number, participant_type, student_id, staff_id, faculty, medical_info) 
-        VALUES ('$full_name', '$email', '$phone_number', '$participant_type', '$student_id', '$staff_id', '$faculty', '$medical_info')";
+        VALUES ('$full_name', '$email', '$phone_number', '$participant_type', '$student_id', '$staff_id', '$faculty', '$medical_info', '$event_name')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Registration successful!";
