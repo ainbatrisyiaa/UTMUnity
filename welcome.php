@@ -118,11 +118,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>
-            <!-- Clickable Image 3 -->
-            <a href="feedback.php">
-                <img src="feedback.png" alt="Image 3">
-                <div class="label">Feedback</div>
-            </a>
         </div>
     </div>
 
