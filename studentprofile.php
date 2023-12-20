@@ -27,7 +27,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_close($stmt);
 }
 
-// Process form data when form is submitted
+// Process form data when the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate username
     if (empty(trim($_POST["username"]))) {
@@ -101,16 +101,33 @@ mysqli_close($link);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Add your custom styles if needed -->
     <style>
-    body {
+        body {
             font: solid black;
-            background-color: #5fb896;
+            background-color: #a3e4d7;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Student Profile</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h2 class="text-center">Student Profile</h2>
+
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -142,7 +159,7 @@ mysqli_close($link);
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Update Profile">
+                <input type="submit" class="btn btn-primary btn-block" value="Update Profile">
             </div>
         </form>
     </div>

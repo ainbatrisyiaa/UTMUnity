@@ -94,15 +94,28 @@ mysqli_close($link);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Add your custom styles if needed -->
     <style>
-    body {
+        body {
             font: solid black;
             background-color: #a3e4d7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Organization Profile</h2>
+        <h2 class="text-center">Organization Profile</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Organization Username</label>
@@ -129,7 +142,7 @@ mysqli_close($link);
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Update Profile">
+                <input type="submit" class="btn btn-primary btn-block" value="Update Profile">
             </div>
         </form>
     </div>
