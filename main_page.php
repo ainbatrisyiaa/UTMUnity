@@ -59,12 +59,12 @@
         <h2>Guardians of the Wild: Save Animals Life</h2>
     </div>
 
-    <div class="event" onclick="redirectToEvent('event_details2.php')">
+    <div class="event" onclick="redirectToEvent('event_details_2.php')">
         <img src="poor.png" alt="Event B">
         <h2>Hearts United: Meet Poor People</h2>
     </div>
 
-    <div class="event" onclick="redirectToEvent('event_details3.php')">
+    <div class="event" onclick="redirectToEvent('event_details_3.php')">
         <img src="tree.jpg" alt="Event C">
         <h2>Roots of Change: The Tree Planting Movement</h2>
     </div>
