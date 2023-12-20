@@ -7,7 +7,25 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Registration Form for Events</title>
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="style.css">
+		
+		<script>
+			
+			function showSuccessPopup() {
+				alert('Registration Successful!');
+				window.location.href = 'index1.php';
+			}
+
+  
+			function handleSubmit(event) {
+    
+				event.preventDefault();
+
+   
+				showSuccessPopup();
+			}
+		</script>
+
 	</head>
 	
 	<body>
@@ -15,7 +33,7 @@
 	
 		<section class="container">
 			<header>Registration Form</head>
-			<form action="process_form.php" method="post" class="form">
+			<form action="process_form.php" method="post" class="form" onsubmit="handleSubmit(event)">
 				<div class="input-box">
 					<label>Full Name</label>
 					<input type="text" name="full_name" placeholder="Enter full name" required />
@@ -93,7 +111,7 @@
 					<input type="text" name="medical_info" placeholder="Enter medical information" required />
 				</div>
 				
-				<button>Submit</button>
+				<button type="Submit">Submit</button>
 			</form>
 								
 		</section>
