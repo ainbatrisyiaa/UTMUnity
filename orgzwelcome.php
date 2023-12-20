@@ -93,6 +93,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 
 <div class="icon-bar">
+        <span><i class="fa fa-users"></i> Organization</span>
         <a class="active" href="#home"><i class="fa fa-home"></i> Home</a>
         <a href="#about"><i class="fa fa-info-circle"></i> About</a>
         <a href="news.php"><i class="fa fa-newspaper-o"></i> News</a>
@@ -117,10 +118,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="label">Donation</div>
         </a>
         <!-- Clickable Image 3 -->
-        <a href="news.php">
-            <img src="banner-news-fix.png" alt="Image 3">
-            <div class="label">View Participant List</div>
-        </a>
+        <a href="feedback.php">
+                <img src="feedback.png" alt="Image 3">
+                <div class="label">Feedback</div>
+            </a>
     </div>
 
 </body>

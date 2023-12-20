@@ -94,6 +94,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 
     <div class="icon-bar">
+       <h5>Staff</h5>
         <a class="active" href="#home"><i class="fa fa-home"></i> Home</a>
         <a href="#about"><i class="fa fa-info-circle"></i> About</a>
         <a href="news.php"><i class="fa fa-newspaper-o"></i> News</a>
@@ -102,9 +103,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <a href="reset-password.php"><i class="fa fa-key"></i> Reset Password</a>
         <a href="userlogout.php"><i class="fa fa-sign-out"></i> Logout</a>
     </div>
-
+    
     <!-- Content Section -->
     <div class="content-section">
+    
         <h1 class="my-5">Hi, <b><?php echo isset($_SESSION["username"]) ? htmlspecialchars($_SESSION["username"]) : "User"; ?></b>. Welcome to our site.</h1>
         
         <div class="button-wrapper">
@@ -114,12 +116,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <div class="label">Events</div>
             </a>
             <!-- Clickable Image 2 -->
-            <a href="donation.php">
+            <a href="main_page.php">
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>
+            <!-- Clickable Image 3 -->
+            <a href="feedback.php">
+                <img src="feedback.png" alt="Image 3">
+                <div class="label">Feedback</div>
+            </a>
         </div>
     </div>
+    
 
 </body>
 </html>
