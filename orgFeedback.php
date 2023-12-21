@@ -79,7 +79,7 @@
         </div>
     </a>
 
-    <a href="analysis.php" class="big-button">
+    <a href="fb_analysis.php" class="big-button">
         <div class="event-card">
             <h2>Feedback Statistics</h2>
             <p>Click here to see statistics and analysis of feedback for this event.</p>
