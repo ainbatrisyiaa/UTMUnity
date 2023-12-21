@@ -136,13 +136,13 @@ $.ajax({
             title: result[i].title,
             start: result[i].start,
             end: result[i].end,
-            color: 'turquoise',
+            color: result[i].color,
             url: result[i].url
         }); 	
     })
 	var calendar = $('#calendar').fullCalendar({
 	    defaultView: 'month',
-		timeZone: 'local',
+		 timeZone: 'local',
 	    editable: true,
         selectable: true,
 		selectHelper: true,
