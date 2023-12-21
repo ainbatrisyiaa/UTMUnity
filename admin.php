@@ -44,7 +44,7 @@
     <nav>
         <a href="#">Events</a>
         <a href="admin_page.php">Donation</a>
-        <a href="#">Feedback</a>
+        <a href="orgFeedback.php">Feedback</a>
         <!-- Add more navigation links as needed -->
     </nav>
     <p> Total Registered Users </p>
