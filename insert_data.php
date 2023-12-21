@@ -38,7 +38,7 @@ foreach ($questions as $i => $question) {
     $columnName = "question_" . ($i + 1);
 
     if ($answerFormat === "text") {
-        $insertDataQuery .= "'${_POST["text_answers"][$i]}", ";
+        $insertDataQuery .= "'" . $_POST["text_answers"][$i] . "', ";
     } elseif ($answerFormat === "radio" || $answerFormat === "checkbox") {
         // Add values for each option
         $optionsArray = explode(",", $options[$i]);
