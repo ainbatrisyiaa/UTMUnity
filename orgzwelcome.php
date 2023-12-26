@@ -113,7 +113,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="label">Add Events</div>
         </a>
         <!-- Clickable Image 2 -->
-        <a href="donation.php">
+        <a href="orgzdonate.php">
             <img src="Donate.jpg" alt="Image 2">
             <div class="label">Donation</div>
         </a>
