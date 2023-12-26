@@ -26,8 +26,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 use League\OAuth2\Client\Provider\Google;
 
 $provider = new Google([
-    'clientId'     => '420005998744-if4ddc117g39gr4vemd1ngsrf13t740g.apps.googleusercontent.com',
-    'clientSecret' => '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',
+    'clientId'     => '420005998744-2r8ft5v6v6hqub65mi00t2ueg2o30oav.apps.googleusercontent.com',
+    'clientSecret' => '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',
     'redirectUri'  => 'http://localhost/ad_project/test.php', // Update with your actual redirect URI
 ]);
 
