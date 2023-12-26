@@ -16,7 +16,7 @@ nav{
 	align-items: center;
 	grid-column-gap: 30px;
 	grid-template-rows: 70px;
-	bos-shadow: 0 5px 5px rgba(0,0,0,0.15);
+	box-shadow: 0 5px 5px rgba(0,0,0,0.15);
 	position: sticky;
 	top: 0;
 	background-color: #a3e4d7 ;   /*#4dd7fa*/ /*ok*/
@@ -52,7 +52,7 @@ header{
 	padding: 40px 20px;
 	background-color: #c9f1fd;      /*#f4f4f4*/   
 }
-header h1{}
+/*header h1{}*/
 
 header .sub-title{
 	margin-top: 20px;
