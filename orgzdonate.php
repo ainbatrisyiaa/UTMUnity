@@ -37,6 +37,20 @@
         .no-event {
             color: #555;
         }
+
+        .back-to-home {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #2E8B57;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .back-to-home:hover {
+            background-color: #CC6640;
+        }
     </style>
 </head>
 
@@ -50,6 +64,7 @@
         $username = "DevGenius";
         $password = "UTMUnity67";
         $dbname = "devgenius";
+
 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -85,6 +100,7 @@
         $conn->close();
         ?>
 
+    <a href="welcome.php" class="back-to-home">Back to Home</a>
     </div>
 </body>
 
