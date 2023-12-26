@@ -50,9 +50,6 @@ foreach ($questions as $i => $question) {
     }
 }
 
-}
-
-
 $insertDataQuery .= "NOW())";
 
 if ($conn->query($insertDataQuery) === TRUE) {

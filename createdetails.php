@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "localhost";
-$password = "donationform";
-$dbname = "donationdetails";
+$username = "DevGenius";
+$password = "UTMUnity67";
+$dbname = "devgenius";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

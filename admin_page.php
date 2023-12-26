@@ -60,9 +60,9 @@
                 <?php
                 // Establish a database connection
                 $servername = "localhost";
-                $username = "localhost";
-                $password = "donationform";
-                $dbname = "donationdetails";
+                $username = "DevGenius";
+                $password = "UTMUnity67";
+                $dbname = "devgenius";
 
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
