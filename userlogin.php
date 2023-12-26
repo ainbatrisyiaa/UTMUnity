@@ -1,35 +1,39 @@
 <?php
-// Initialize the session
 session_start();
+require_once "studentstaffdb.php";
+require 'vendor/autoload.php';
 
-// Check if the user is already logged in, if yes then redirect him to the welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    // Redirect to the appropriate landing page based on the category
+// Redirect logged-in users to the appropriate landing page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     switch ($_SESSION["category"]) {
         case 'Student':
             header("location: welcome.php");
             break;
         case 'Staff':
-            header("location: staff_welcome.php");
+            header("location: welcomestaff.php");
             break;
         case 'Organization':
-            header("location: organization_welcome.php");
+            header("location: orgzwelcome.php");
             break;
         default:
-            header("location: welcome.php"); // Redirect to a default welcome page if category is not recognized
+            header("location: welcome.php");
             break;
     }
     exit;
 }
 
-// Include studentstaffdb file
-require_once "studentstaffdb.php";
 
-// Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+use League\OAuth2\Client\Provider\Google;
 
-// Processing form data when form is submitted
+$provider = new Google([
+    'clientId'     => '420005998744-if4ddc117g39gr4vemd1ngsrf13t740g.apps.googleusercontent.com',
+    'clientSecret' => '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',
+    'redirectUri'  => 'http://localhost/ad_project/test.php', // Update with your actual redirect URI
+]);
+
+$login_err = $username = $username_err = $password_err = '';
+
+// Process form data when submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if username is empty
@@ -114,6 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close connection
     mysqli_close($link);
 }
+
+
+// Generate Google OAuth URL
+
+$authUrl = $provider->getAuthorizationUrl();
 ?>
 
 <!DOCTYPE html>
@@ -123,34 +132,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body{ font: 14px sans-serif; background-color: #a3e4d7; }
-        .wrapper{ width: 500px; padding: 30px; border: 2px solid #888; margin: 10% auto; background: white; }
-
-        .button-wrapper {
-            text-align: center;
-        }
-
-        .button-wrapper input[type=button] {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 5px;
-        }
-
-        .button-wrapper input[type=button]:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-        }
+        body { font: 14px sans-serif; background-color: #a3e4d7; }
+        .wrapper { width: 500px; padding: 30px; border: 2px solid #888; margin: 10% auto; background: white; }
+        .button-wrapper { text-align: center; }
+        .button-wrapper input[type=button] { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 5px; }
+        .button-wrapper input[type=button]:hover { background-color: #0056b3; }
     </style>
 </head>
 <body>
     <div class="wrapper">
-    <img src="logo.png" alt="Logo" width="150" height="150">
+        <img src="logo.png" alt="Logo" width="150" height="150">
         <h2>Login</h2>
-        <p></p>
         <p>Please fill in your credentials to login.</p>
 
         <?php 
@@ -173,8 +165,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
+            <p>Or log in with:</p>
+            <div class="button-wrapper">
+                <input type="button" onclick="window.location='<?php echo $authUrl; ?>'" value="Google">
+            </div>
             <p>Don't have an account? <a href="userregister.php">Sign up now</a>.</p>
         </form>
     </div>
 </body>
 </html>
+
