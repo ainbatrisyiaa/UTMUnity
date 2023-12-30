@@ -169,6 +169,7 @@ $authUrl = $provider->getAuthorizationUrl();
             <div class="button-wrapper">
                 <input type="button" onclick="window.location='<?php echo $authUrl; ?>'" value="Google">
             </div>
+            <p></p>
             <p>Don't have an account? <a href="userregister.php">Sign up now</a>.</p>
         </form>
     </div>
