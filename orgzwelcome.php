@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to the login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: userlogin.php");
+    header("location: googlelogin.php");
     exit;
 }
 ?>
@@ -100,7 +100,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <a href="#contact"><i class="fa fa-envelope"></i> Contact</a>
         <a href="orgzprofile.php"><i class="fa fa-user"></i> Profile</a>
         <a href="reset-password.php"><i class="fa fa-key"></i> Reset Password</a>
-        <a href="userlogout.php"><i class="fa fa-sign-out"></i> Logout</a>
+        <a href="googlelogout.php"><i class="fa fa-sign-out"></i> Logout</a>
     </div>
 
     <!-- Content Section -->
