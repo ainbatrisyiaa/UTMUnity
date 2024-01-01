@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Psr\Http\Message;
 
 /**
@@ -62,7 +64,11 @@ interface UploadedFileInterface
      * @throws \RuntimeException on any error during the move operation, or on
      *     the second or subsequent call to the method.
      */
+<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UploadedFileInterface.php
     public function moveTo($targetPath);
+=======
+    public function moveTo(string $targetPath);
+>>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UploadedFileInterface.php
     
     /**
      * Retrieve the file size.

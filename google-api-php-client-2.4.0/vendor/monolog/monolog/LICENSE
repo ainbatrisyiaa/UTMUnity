@@ -1,4 +1,8 @@
+<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/monolog/monolog/LICENSE
 Copyright (c) 2011-2019 Jordi Boggiano
+=======
+Copyright (c) 2020-2022 Fabien Potencier
+>>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/symfony/deprecation-contracts/LICENSE
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Psr\Http\Message;
 
 /**
@@ -49,7 +51,11 @@ interface ResponseInterface extends MessageInterface
      * @return static
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
+<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/ResponseInterface.php
     public function withStatus($code, $reasonPhrase = '');
+=======
+    public function withStatus(int $code, string $reasonPhrase = '');
+>>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/ResponseInterface.php
 
     /**
      * Gets the response reason phrase associated with the status code.
