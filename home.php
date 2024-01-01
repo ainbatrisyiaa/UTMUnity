@@ -9,7 +9,7 @@ if (!$db_connection) {
 
 
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: googlelogin.php');
+    header('Location: main.php');
     exit;
 }
 

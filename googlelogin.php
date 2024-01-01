@@ -4,7 +4,20 @@ require 'studentstaffdb.php';
 
 // Check if the user is already logged in
 if (isset($_SESSION['loggedin'])) {
-    header('Location: home.php');
+    switch ($_SESSION["category"]) {
+        case 'Student':
+            header("location: welcome.php");
+            break;
+        case 'Staff':
+            header("location: welcomestaff.php");
+            break;
+        case 'Organization':
+            header("location: orgzwelcome.php");
+            break;
+        default:
+            header("location: home.php");
+            break;
+    }
     exit;
 }
 
@@ -12,13 +25,9 @@ require 'google-api-php-client-2.4.0/vendor/autoload.php';
 
 // Creating a new Google client instance
 $client = new Google_Client();
-// Enter your Client ID
 $client->setClientId('420005998744-2r8ft5v6v6hqub65mi00t2ueg2o30oav.apps.googleusercontent.com');
-// Enter your Client Secret
 $client->setClientSecret('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');
-// Enter the Redirect URL
 $client->setRedirectUri('http://localhost/ad_project/googlelogin.php');
-// Adding scopes for email & profile information
 $client->addScope("email");
 $client->addScope("profile");
 
@@ -39,25 +48,37 @@ if (isset($_GET['code'])) {
 
         // Storing data into the database
         $id = mysqli_real_escape_string($db_connection, $google_account_info->id);
-        $full_name = mysqli_real_escape_string($db_connection, trim($google_account_info->name));
+        $name = mysqli_real_escape_string($db_connection, trim($google_account_info->name));
         $email = mysqli_real_escape_string($db_connection, $google_account_info->email);
         $profile_pic = mysqli_real_escape_string($db_connection, $google_account_info->picture);
 
         // Checking if the user already exists or not
-        $get_user = mysqli_query($db_connection, "SELECT `oauth_id` FROM `google` WHERE `oauth_id`='$id'");
+        $get_user = mysqli_query($db_connection, "SELECT `oauth_id`, `category` FROM `google` WHERE `oauth_id`='$id'");
 
         if (mysqli_num_rows($get_user) > 0) {
+            $row = mysqli_fetch_assoc($get_user);
             $_SESSION['loggedin'] = $id;
-            header('Location: home.php');
-            exit;
+            $_SESSION['category'] = $row['category'];
+            redirectUser();
         } else {
             // If the user does not exist, insert the user
-            $insert = mysqli_query($db_connection, "INSERT INTO `google`(`oauth_id`,`full_name`,`email`) VALUES('$id','$full_name','$email')");
+            header("Location: test.php?id=$id&name=$name&email=$email");
+
+            // Insert user after redirection
+            $insert = mysqli_query($db_connection, "INSERT INTO `google`(`oauth_id`,`name`,`email`) VALUES('$id','$name','$email')");
 
             if ($insert) {
-                $_SESSION['loggedin'] = $id;
-                header('Location: home.php');
-                exit;
+                // Fetch the category for the user
+                $result = mysqli_query($db_connection, "SELECT `category` FROM `google` WHERE `oauth_id`='$id'");
+
+                if ($result) {
+                    $row = mysqli_fetch_assoc($result);
+                    $_SESSION['loggedin'] = $id;
+                    $_SESSION['category'] = $row['category'];
+                    redirectUser();
+                } else {
+                    echo "Error fetching category from the database.";
+                }
             } else {
                 echo "Sign up failed! (Something went wrong).";
             }
@@ -72,32 +93,19 @@ if (isset($_GET['code'])) {
 
     // Redirect logged-in users to the appropriate landing page
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-        switch ($_SESSION["category"]) {
-            case 'Student':
-                header("location: welcome.php");
-                break;
-            case 'Staff':
-                header("location: welcomestaff.php");
-                break;
-            case 'Organization':
-                header("location: orgzwelcome.php");
-                break;
-            default:
-                header("location: welcome.php");
-                break;
-        }
+        redirectUser();
         exit;
     }
 
-    $login_err = $username = $username_err = $password_err = '';
+    $login_err = $name = $name_err = $password_err = '';
 
     // Process form data when submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Check if username is empty
-        if (empty(trim($_POST["username"]))) {
-            $username_err = "Please enter username.";
+        // Check if name is empty
+        if (empty(trim($_POST["name"]))) {
+            $name_err = "Please enter name.";
         } else {
-            $username = trim($_POST["username"]);
+            $name = trim($_POST["name"]);
         }
 
         // Check if password is empty
@@ -108,60 +116,42 @@ if (isset($_GET['code'])) {
         }
 
         // Validate credentials
-        if (empty($username_err) && empty($password_err)) {
+        if (empty($name_err) && empty($password_err)) {
             // Prepare a select statement
-            $sql = "SELECT id, username, password, category FROM studentstaff WHERE username = ?";
+            $sql = "SELECT id, name, password, category FROM google WHERE name = ?";
 
             if ($stmt = mysqli_prepare($db_connection, $sql)) {
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_username);
+                mysqli_stmt_bind_param($stmt, "s", $param_name);
 
                 // Set parameters
-                $param_username = $username;
+                $param_name = $name;
 
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
                     // Store result
                     mysqli_stmt_store_result($stmt);
 
-                    // Check if username exists, if yes, then verify the password
+                    // Check if name exists, if yes, then verify the password
                     if (mysqli_stmt_num_rows($stmt) == 1) {
                         // Bind result variables
-                        mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $category);
+                        mysqli_stmt_bind_result($stmt, $id, $name, $hashed_password, $category);
                         if (mysqli_stmt_fetch($stmt)) {
                             if (password_verify($password, $hashed_password)) {
                                 // Password is correct, so start a new session
-                                session_start();
-
-                                // Store data in session variables
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["id"] = $id;
-                                $_SESSION["username"] = $username;
+                                $_SESSION["name"] = $name;
                                 $_SESSION["category"] = $category;
-
-                                // Redirect user to the welcome page
-                                switch ($category) {
-                                    case 'Student':
-                                        header("location: welcome.php");
-                                        break;
-                                    case 'Staff':
-                                        header("location: welcomestaff.php");
-                                        break;
-                                    case 'Organization':
-                                        header("location: orgzwelcome.php");
-                                        break;
-                                    default:
-                                        header("location: welcome.php");
-                                        break;
-                                }
+                                redirectUser();
                             } else {
                                 // Password is not valid, display a generic error message
-                                $login_err = "Invalid username or password.";
+                                $login_err = "Invalid name or password.";
                             }
                         }
                     } else {
-                        // Username doesn't exist, display a generic error message
-                        $login_err = "Invalid username or password.";
+                        // name doesn't exist, display a generic error message
+                        $login_err = "Invalid name or password.";
                     }
                 } else {
                     echo "Oops! Something went wrong. Please try again later.";
@@ -175,6 +165,25 @@ if (isset($_GET['code'])) {
         // Close connection
         mysqli_close($db_connection);
     }
+}
+
+// Function to redirect user based on category
+function redirectUser() {
+    switch ($_SESSION["category"]) {
+        case 'Student':
+            header("location: welcome.php");
+            break;
+        case 'Staff':
+            header("location: welcomestaff.php");
+            break;
+        case 'Organization':
+            header("location: orgzwelcome.php");
+            break;
+        default:
+            header("location: home.php");
+            break;
+    }
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -299,11 +308,12 @@ if (isset($_GET['code'])) {
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>
+        <div class="form-group">
+    <label>Username</label>
+    <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+    <span class="invalid-feedback"><?php echo $name_err; ?></span>
+</div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
@@ -312,7 +322,7 @@ if (isset($_GET['code'])) {
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            
+
             <p> OR login with
 
             <div class="_container btn">
@@ -321,12 +331,9 @@ if (isset($_GET['code'])) {
                 </a>
             </div>
 
-        <p>Don't have an account? <a href="userregister.php">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="userregister.php">Sign up now</a>.</p>
         </form>
     </div>
 </body>
 
 </html>
-<?php
-
-?>

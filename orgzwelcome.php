@@ -104,7 +104,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </div>
 
     <!-- Content Section -->
-    <h1 class="my-5">Hi, <b><?php echo isset($_SESSION["username"]) ? htmlspecialchars($_SESSION["username"]) : "User"; ?></b>. Welcome to our site.</h1>
+    <h1 class="my-5">Hi, <b><?php echo isset($_SESSION["name"]) ? htmlspecialchars($_SESSION["name"]) : "User"; ?></b>. Welcome to our site.</h1>
     
     <div class="button-wrapper">
         <!-- Clickable Image 1 -->
