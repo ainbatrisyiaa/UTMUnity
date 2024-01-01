@@ -128,6 +128,7 @@
     if (isset($feedbackData)) {
         echo "<h2>Feedback Report for $selectedEventName</h2>";
         echo "<p>Number of Responses: " . count($feedbackData['responses']) . "</p>";
+        echo "Download Excel";
 
         // Start the flex container
         echo '<div style="display: flex; flex-wrap: wrap;">';
