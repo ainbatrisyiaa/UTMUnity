@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Psr\Http\Message;
 
 /**
@@ -243,11 +241,7 @@ interface ServerRequestInterface extends RequestInterface
      * @param mixed $value The value of the attribute.
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/ServerRequestInterface.php
     public function withAttribute($name, $value);
-=======
-    public function withAttribute(string $name, $value);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/ServerRequestInterface.php
 
     /**
      * Return an instance that removes the specified derived request attribute.
@@ -263,9 +257,5 @@ interface ServerRequestInterface extends RequestInterface
      * @param string $name The attribute name.
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/ServerRequestInterface.php
     public function withoutAttribute($name);
-=======
-    public function withoutAttribute(string $name);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/ServerRequestInterface.php
 }

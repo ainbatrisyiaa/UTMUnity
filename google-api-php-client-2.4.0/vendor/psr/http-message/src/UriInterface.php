@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
-=======
-
-declare(strict_types=1);
-
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 namespace Psr\Http\Message;
 
 /**
@@ -194,11 +188,7 @@ interface UriInterface
      * @return static A new instance with the specified scheme.
      * @throws \InvalidArgumentException for invalid or unsupported schemes.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withScheme($scheme);
-=======
-    public function withScheme(string $scheme);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified user information.
@@ -214,11 +204,7 @@ interface UriInterface
      * @param null|string $password The password associated with $user.
      * @return static A new instance with the specified user information.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withUserInfo($user, $password = null);
-=======
-    public function withUserInfo(string $user, ?string $password = null);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified host.
@@ -232,11 +218,7 @@ interface UriInterface
      * @return static A new instance with the specified host.
      * @throws \InvalidArgumentException for invalid hostnames.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withHost($host);
-=======
-    public function withHost(string $host);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified port.
@@ -255,11 +237,7 @@ interface UriInterface
      * @return static A new instance with the specified port.
      * @throws \InvalidArgumentException for invalid ports.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withPort($port);
-=======
-    public function withPort(?int $port);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified path.
@@ -283,11 +261,7 @@ interface UriInterface
      * @return static A new instance with the specified path.
      * @throws \InvalidArgumentException for invalid paths.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withPath($path);
-=======
-    public function withPath(string $path);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified query string.
@@ -304,11 +278,7 @@ interface UriInterface
      * @return static A new instance with the specified query string.
      * @throws \InvalidArgumentException for invalid query strings.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withQuery($query);
-=======
-    public function withQuery(string $query);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return an instance with the specified URI fragment.
@@ -324,11 +294,7 @@ interface UriInterface
      * @param string $fragment The fragment to use with the new instance.
      * @return static A new instance with the specified fragment.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/UriInterface.php
     public function withFragment($fragment);
-=======
-    public function withFragment(string $fragment);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/UriInterface.php
 
     /**
      * Return the string representation as a URI reference.

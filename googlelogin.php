@@ -1,21 +1,23 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 session_start();
 require 'studentstaffdb.php';
-
-// Check if the user is already logged in
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 if (isset($_SESSION['loggedin'])) {
     switch ($_SESSION["category"]) {
         case 'Student':
-            header("location: welcome.php");
+            header("location: studenthome.php");
             break;
         case 'Staff':
-            header("location: welcomestaff.php");
+            header("location: staffhome.php");
             break;
         case 'Organization':
-            header("location: orgzwelcome.php");
+            header("location: orgzhome.php");
             break;
         default:
-            header("location: home.php");
+            header("location: googlelogin.php");
             break;
     }
     exit;
@@ -90,7 +92,7 @@ if (isset($_GET['code'])) {
 } else {
     // Google Login URL
     $google_login_url = $client->createAuthUrl();
-
+    
     // Redirect logged-in users to the appropriate landing page
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         redirectUser();
@@ -151,7 +153,7 @@ if (isset($_GET['code'])) {
                         }
                     } else {
                         // name doesn't exist, display a generic error message
-                        $login_err = "Invalid name or password.";
+                        $login_err = "Invalid username or password.";
                     }
                 } else {
                     echo "Oops! Something went wrong. Please try again later.";
@@ -180,7 +182,7 @@ function redirectUser() {
             header("location: orgzwelcome.php");
             break;
         default:
-            header("location: home.php");
+            header("location: test.php");
             break;
     }
     exit;
@@ -191,7 +193,7 @@ function redirectUser() {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login Google</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -308,12 +310,11 @@ function redirectUser() {
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="form-group">
-    <label>Username</label>
-    <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-    <span class="invalid-feedback"><?php echo $name_err; ?></span>
-</div>
-
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+            </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">

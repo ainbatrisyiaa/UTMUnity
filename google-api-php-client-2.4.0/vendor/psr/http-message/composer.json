@@ -20,11 +20,7 @@
     },
     "extra": {
         "branch-alias": {
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/composer.json
             "dev-master": "1.0.x-dev"
-=======
-            "dev-master": "1.1.x-dev"
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/composer.json
         }
     }
 }

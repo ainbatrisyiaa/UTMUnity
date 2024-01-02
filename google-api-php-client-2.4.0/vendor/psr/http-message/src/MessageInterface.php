@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Psr\Http\Message;
 
 /**
@@ -40,11 +38,7 @@ interface MessageInterface
      * @param string $version HTTP protocol version
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function withProtocolVersion($version);
-=======
-    public function withProtocolVersion(string $version);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Retrieves all message header values.
@@ -81,11 +75,7 @@ interface MessageInterface
      *     name using a case-insensitive string comparison. Returns false if
      *     no matching header name is found in the message.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function hasHeader($name);
-=======
-    public function hasHeader(string $name);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Retrieves a message header value by the given case-insensitive name.
@@ -101,11 +91,7 @@ interface MessageInterface
      *    header. If the header does not appear in the message, this method MUST
      *    return an empty array.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function getHeader($name);
-=======
-    public function getHeader(string $name);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Retrieves a comma-separated string of the values for a single header.
@@ -126,11 +112,7 @@ interface MessageInterface
      *    concatenated together using a comma. If the header does not appear in
      *    the message, this method MUST return an empty string.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function getHeaderLine($name);
-=======
-    public function getHeaderLine(string $name);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Return an instance with the provided value replacing the specified header.
@@ -147,11 +129,7 @@ interface MessageInterface
      * @return static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function withHeader($name, $value);
-=======
-    public function withHeader(string $name, $value);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Return an instance with the specified header appended with the given value.
@@ -169,11 +147,7 @@ interface MessageInterface
      * @return static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function withAddedHeader($name, $value);
-=======
-    public function withAddedHeader(string $name, $value);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Return an instance without the specified header.
@@ -187,11 +161,7 @@ interface MessageInterface
      * @param string $name Case-insensitive header field name to remove.
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/MessageInterface.php
     public function withoutHeader($name);
-=======
-    public function withoutHeader(string $name);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/MessageInterface.php
 
     /**
      * Gets the body of the message.

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Psr\Http\Message;
 
 /**
@@ -86,11 +84,7 @@ interface StreamInterface
      *     SEEK_END: Set position to end-of-stream plus offset.
      * @throws \RuntimeException on failure.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/StreamInterface.php
     public function seek($offset, $whence = SEEK_SET);
-=======
-    public function seek(int $offset, int $whence = SEEK_SET);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/StreamInterface.php
 
     /**
      * Seek to the beginning of the stream.
@@ -118,11 +112,7 @@ interface StreamInterface
      * @return int Returns the number of bytes written to the stream.
      * @throws \RuntimeException on failure.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/StreamInterface.php
     public function write($string);
-=======
-    public function write(string $string);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/StreamInterface.php
 
     /**
      * Returns whether or not the stream is readable.
@@ -141,11 +131,7 @@ interface StreamInterface
      *     if no bytes are available.
      * @throws \RuntimeException if an error occurs.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/StreamInterface.php
     public function read($length);
-=======
-    public function read(int $length);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/StreamInterface.php
 
     /**
      * Returns the remaining contents in a string

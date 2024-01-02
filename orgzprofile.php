@@ -7,21 +7,21 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: studentstafflogin.php");
+    header("location: googlelogin.php");
     exit;
 }
 
 // Define variables and initialize with empty values
-$username = $full_name = $phone_number = $email = "";
-$username_err = $full_name_err = $phone_number_err = $email_err = "";
+$name = $full_name = $phone_number = $email = "";
+$name_err = $full_name_err = $phone_number_err = $email_err = "";
 
 // Fetch user profile from the database
-$sql = "SELECT username, full_name, phone_number, email FROM studentstaff WHERE id = ?";
+$sql = "SELECT name, full_name, phone_number, email FROM google WHERE id = ?";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_bind_param($stmt, "i", $_SESSION["id"]);
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_store_result($stmt);
-        mysqli_stmt_bind_result($stmt, $username, $full_name, $phone_number, $email);
+        mysqli_stmt_bind_result($stmt, $name, $full_name, $phone_number, $email);
         mysqli_stmt_fetch($stmt);
     }
     mysqli_stmt_close($stmt);
@@ -29,13 +29,13 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
 // Process form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter a username.";
-    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-        $username_err = "Username can only contain letters, numbers, and underscores.";
+    // Validate name
+    if (empty(trim($_POST["name"]))) {
+        $name_err = "Please enter a name.";
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["name"]))) {
+        $name_err = "name can only contain letters, numbers, and underscores.";
     } else {
-        $username = trim($_POST["username"]);
+        $name = trim($_POST["name"]);
     }
 
     // Validate full name
@@ -62,12 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check input errors before updating the database
-    if (empty($username_err) && empty($full_name_err) && empty($phone_number_err) && empty($email_err)) {
+    if (empty($name_err) && empty($full_name_err) && empty($phone_number_err) && empty($email_err)) {
         // Update user profile in the database
-        $sql = "UPDATE studentstaff SET username=?, full_name=?, phone_number=?, email=? WHERE id=?";
+        $sql = "UPDATE google SET name=?, full_name=?, phone_number=?, email=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ssssi", $username, $full_name, $phone_number, $email, $_SESSION["id"]);
+            mysqli_stmt_bind_param($stmt, "ssssi", $name, $full_name, $phone_number, $email, $_SESSION["id"]);
 
             if (mysqli_stmt_execute($stmt)) {
                 // Profile updated successfully
@@ -90,7 +90,7 @@ mysqli_close($link);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>Organization Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Add your custom styles if needed -->
     <style>
@@ -119,8 +119,8 @@ mysqli_close($link);
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Organization Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+                <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>
 
             <div class="form-group">

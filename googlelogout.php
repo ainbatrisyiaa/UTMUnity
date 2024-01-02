@@ -13,7 +13,6 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-session_regenerate_id(true);
 // Finally, destroy the session.
 session_destroy();
 header("Location: googlelogin.php");

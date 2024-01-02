@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Psr\Http\Message;
 
 /**
@@ -60,11 +58,7 @@ interface RequestInterface extends MessageInterface
      * @param mixed $requestTarget
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/RequestInterface.php
     public function withRequestTarget($requestTarget);
-=======
-    public function withRequestTarget(string $requestTarget);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/RequestInterface.php
 
     /**
      * Retrieves the HTTP method of the request.
@@ -88,11 +82,7 @@ interface RequestInterface extends MessageInterface
      * @return static
      * @throws \InvalidArgumentException for invalid HTTP methods.
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/RequestInterface.php
     public function withMethod($method);
-=======
-    public function withMethod(string $method);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/RequestInterface.php
 
     /**
      * Retrieves the URI instance.
@@ -135,9 +125,5 @@ interface RequestInterface extends MessageInterface
      * @param bool $preserveHost Preserve the original state of the Host header.
      * @return static
      */
-<<<<<<< HEAD:google-api-php-client-2.4.0/vendor/psr/http-message/src/RequestInterface.php
     public function withUri(UriInterface $uri, $preserveHost = false);
-=======
-    public function withUri(UriInterface $uri, bool $preserveHost = false);
->>>>>>> 6b42c0529bed362c29e1694be7a1fa9b9d2b5588:vendor/psr/http-message/src/RequestInterface.php
 }
