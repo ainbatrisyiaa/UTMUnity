@@ -9,9 +9,6 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-//var_dump($feedbackData);
-//var_dump($questionOptionsMap);
-
 // Retrieve feedback data and question options from session
 session_start();
 if (isset($_SESSION['feedbackData'], $_SESSION['questionOptionsMap'])) {
@@ -57,7 +54,6 @@ function downloadExcel($feedbackData, $questionOptionsMap) {
 
     // Check if the file is successfully created
     if (!file_exists($tempFilePath)) {
-        // Handle the error appropriately (e.g., log, show a user-friendly message)
         echo "Error: Excel file creation failed.<br>";
         exit;
     }
@@ -69,20 +65,10 @@ function downloadExcel($feedbackData, $questionOptionsMap) {
     header('Content-Length: ' . filesize($tempFilePath));
 
     // Output the Excel file to the browser
-    ob_start();
-    if (readfile($tempFilePath) !== false) {
-        ob_clean();
-    } else {
-        ob_end_clean();
-        echo "Error: Failed to send Excel file to the browser.<br>";
-    }
+    readfile($tempFilePath);
 
     // Delete the temporary file
-    if (unlink($tempFilePath)) {
-        echo "Temporary file successfully deleted.<br>";
-    } else {
-        echo "Error: Failed to delete the temporary file.<br>";
-    }
+    unlink($tempFilePath);
 
     // Stop script execution
     exit;
