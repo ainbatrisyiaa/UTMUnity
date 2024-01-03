@@ -1,5 +1,5 @@
 <?php
 	define('SERVER', 'localhost');
-	define('USERNAME', 'JelizaJustine');
-	define('PASSWORD', '');
-	define('DATABASE', 'volunteering_events');
+	define('USERNAME', 'DevGenius');
+	define('PASSWORD', 'UTMUnity67');
+	define('DATABASE', 'devgenius');
