@@ -68,8 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Redirect or show success message
-    header("Location: view_form.php");
+    $confirmationMessage = "Are you sure you want to publish the form?";
+    echo "<script>";
+    echo "if (confirm('$confirmationMessage')) {";
+    echo "    window.location.href = 'publish_form.php';";
+    echo "} else {";
+    echo "    alert('Form publication canceled.');";
+    echo "}";
+    echo "</script>";
     exit();
 }
 
