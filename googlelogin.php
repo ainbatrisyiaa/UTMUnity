@@ -29,7 +29,7 @@ require 'google-api-php-client-2.4.0/vendor/autoload.php';
 $client = new Google_Client();
 $client->setClientId('420005998744-2r8ft5v6v6hqub65mi00t2ueg2o30oav.apps.googleusercontent.com');
 $client->setClientSecret('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');
-$client->setRedirectUri('http://localhost/ad_project/googlelogin.php');
+$client->setRedirectUri('http://localhost/UTMUnity/googlelogin.php');
 $client->addScope("email");
 $client->addScope("profile");
 
