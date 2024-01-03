@@ -51,24 +51,42 @@
 					</div>
 				</div>
 				
-				<div class="input-box">
+				<div class="input-box event_name">
 					<label>Event Name</label>
-					<input type="text" name="event_name" placeholder="Enter event name" required />
+						<div class="select-box">
+							<select name="event_name">
+								<option hidden>Event Name</option>
+								<option>HarmonyQuest: Bridging Cultures Through Volunteerism</option>
+								<option>Beach Cleanup Initiative</option>
+								<option>Planting Trees is Fun</option>
+								<option>EcoCycle: Renewing Communities Through Recycling</option>
+								<option>Senior Center Companion</option>
+								<option>Big Brother/ Big Sister Program</option>
+								<option>Health and Wellness Workshops</option>
+								<option>Career Development Seminars</option>
+								<option>Campus Blood Donation Campaign</option>
+								<option>Community Health Fair</option>
+								<option>Women's Empowerment Workshop</option>
+								<option>Animal Shelter Volunteer Day</option>
+								<option>Sustainable Agriculture Project</option>
+								<option>Clean Water Initiative</option>
+							</select>
+						</div>	
 				</div>
 				
 				<div class="participant-box">
 					<label>Participant</label>
 					<div class="participant-option">
 						<div class="participant">
-							<input type="radio" id="check-UTMStudent" name="participant"  value="UTM Student" checked />
+							<input type="radio" id="check-UTMStudent" name="participant_type"  value="UTM Student" checked />
 							<label for="check-UTMStudent">UTM Student</label>
 						</div>
 						<div class="participant">
-							<input type="radio" id="check-staff" name="participant" value="Staff"  />
+							<input type="radio" id="check-staff" name="participant_type" value="Staff"  />
 							<label for="check-staff">Staff</label>
 						</div>
 						<div class="participant">
-							<input type="radio" id="check-UTMVolunteerClub" name="participant" value="UTM Volunteer Club" />
+							<input type="radio" id="check-UTMVolunteerClub" name="participant_type" value="UTM Volunteer Club" />
 							<label for="check-UTMVolunteerClub">UTM Volunteer Club</label>
 						</div>
 					</div>
