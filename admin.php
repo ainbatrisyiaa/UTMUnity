@@ -57,7 +57,7 @@
         require_once "studentstaffdb.php";
 
         // Fetch data from the database
-        $query = "SELECT category, COUNT(*) as total FROM studentstaff GROUP BY category";
+        $query = "SELECT category, COUNT(*) as total FROM google GROUP BY category";
         $result = mysqli_query($link, $query);
 
         // Process data for Chart.js
