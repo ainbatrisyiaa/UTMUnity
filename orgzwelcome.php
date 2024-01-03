@@ -202,7 +202,7 @@ $conn->close();
                 <div class="label">Donation</div>
             </a>
             <!-- Clickable Image 3 -->
-            <a href="feedback.php">
+            <a href="orgFeedback.php">
                 <img src="feedback.png" alt="Image 3">
                 <div class="label">Feedback</div>
             </a>
