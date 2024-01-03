@@ -1,34 +1,40 @@
 <!DOCTYPE HTML>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donation Receipt</title><head>
+    <title>Donation Receipt</title>
     <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+         <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #2ecc71;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .confirmation-container {
-        width: 300px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+        .receipt-container {
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; /* Center horizontally */
+        }
 
-    .logo {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 20px;
-    }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
 
+<<<<<<< HEAD
     h2 {
         color: #048d42;
         margin-bottom: 10px;
@@ -40,34 +46,46 @@
         font-weight: bold;
         margin-bottom: 20px;
     }
+=======
+        h2 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
 
-    .confirmation-details {
-        font-size: 16px;
-        color: #6C757D;
-        margin-bottom: 20px;
-    }
+        .thank-you {
+            font-size: 18px;
+            color: #27ae60;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+>>>>>>> origin/ainbatrisyiaa/devgenius
 
-    .back-to-home {
-        text-decoration: none;
-        color: #ffffff;
-        background-color: #228B22;
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-        display: inline-block;
-    }
+        .confirmation-details {
+            font-size: 16px;
+            color: #6C757D;
+            margin-bottom: 20px;
+        }
 
-    .back-to-home:hover {
-        background-color: #CC6640;
-    }
-</style>
+        .back-to-home {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #228B22;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
 
+        .back-to-home:hover {
+            background-color: #27ae60;
+        }
+    </style>
 </head>
 
 <body>
     <?php
     // Retrieve user details from the URL parameter
-  
+
     if (isset($_GET["user_id"])) {
         $user_id = $_GET["user_id"];
     } else {
@@ -75,7 +93,7 @@
         echo "User ID is not provided.";
         exit(); // Stop further execution to avoid the fatal error below.
     }
-    
+
     // Assuming you have a database connection
     $servername = "localhost";
     $username = "DevGenius";
@@ -102,8 +120,6 @@
             <div class="thank-you">Please reconfirm the details before proceeding with payment.</div>
             <p class="event-name"><strong>Event: </strong><?php echo $row["event_name"]; ?></p>
             <p class="donor-name"><strong>Donor Name: </strong><?php echo $row["first_name"] . " " . $row["last_name"]; ?></p>
-
-        
             <p class="amount-details"><strong>Amount: </strong> $<?php echo number_format($row["donate"], 2); ?></p>
 
             <!-- Rest of your receipt HTML -->
@@ -117,17 +133,6 @@
 
     $conn->close();
     ?>
-
-    <script>
-        // JavaScript to display the current date
-        const currentDate = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('current-date').textContent = currentDate.toLocaleDateString('en-US', options);
-
-        // JavaScript to generate a random transaction ID
-        const transactionId = Math.random().toString(36).substr(2, 10);
-        document.getElementById('transaction-id').textContent = transactionId;
-    </script>
 </body>
 
 </html>

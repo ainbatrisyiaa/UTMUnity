@@ -37,29 +37,8 @@
 
     <h1>Form Published Successfully!</h1>
 
-    <p>Your form has been published. Thank you for your submission!</p>
-
-    <?php
-        // Assuming you have a function to sanitize and validate the identifier
-        function validateFormIdentifier($identifier) {
-            // Implement your validation logic here
-            // For example, you might check if it starts with 'form_' or has a specific format
-            return $identifier;
-        }
-
-        // Get the form identifier from the URL
-        $formIdentifier = isset($_GET['form_id']) ? validateFormIdentifier($_GET['form_id']) : null;
-
-        if ($formIdentifier) {
-            // Assuming your website is hosted at http://example.com
-            $formURL = "http://example.com/forms/$formIdentifier";
-
-            // Display the form URL
-            echo "Your form URL: <a href='$formURL'>$formURL</a>";
-        } else {
-            echo "Invalid form identifier.";
-        }
-    ?>
+    <p>Your form has been published.</p>
+    <p><a href="orgFeedback.php">Back to Main Page</a></p>
 
 </div>
 </div>

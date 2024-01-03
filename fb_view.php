@@ -67,7 +67,7 @@
             $conn = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
 
             // Fetch events for the dropdown
-            $eventsQuery = "SELECT id, event_name FROM events";
+            $eventsQuery = "SELECT id, title FROM events_2";
             $eventsResult = mysqli_query($conn, $eventsQuery);
 
             if (!$eventsResult) {
@@ -78,7 +78,7 @@
             if (mysqli_num_rows($eventsResult) > 0) {
                 while ($eventRow = mysqli_fetch_assoc($eventsResult)) {
                     $eventId = $eventRow['id'];
-                    $eventName = $eventRow['event_name'];
+                    $eventName = $eventRow['title'];
                     echo "<option value='$eventId'>$eventName</option>";
                 }
             } else {
@@ -93,59 +93,6 @@
     </form>
 
     <?php
-    // Assuming you have a database connection
-    $conn = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
-
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get selected event from the form
-    $selectedEventId = $_POST["event"];
-
-    // Fetch event name for the selected event
-    $eventNameQuery = "SELECT event_name FROM events WHERE id = '$selectedEventId'";
-    $eventNameResult = mysqli_query($conn, $eventNameQuery);
-
-    if (!$eventNameResult) {
-        die("Error fetching event name: " . mysqli_error($conn));
-    }
-
-    $eventRow = mysqli_fetch_assoc($eventNameResult);
-    $selectedEventName = ($eventRow) ? $eventRow['event_name'] : '';
-
-    // Fetch and display feedback for the selected event
-    $feedbackData = getFeedbackData($conn, $selectedEventId);
-
-    // Display feedback in a table
-    if (!empty($feedbackData['questions']) && !empty($feedbackData['responses'])) {
-        echo "<h2>Feedback for $selectedEventName</h2>";
-
-        // Display header row with question_text as column titles
-        echo "<table border='1' style='width:70%; font-size: 14px;'>";
-
-        echo "<tr>";
-        foreach ($feedbackData['questions'] as $question) {
-            echo "<th>{$question['question_text']}</th>";
-        }
-        echo "</tr>";
-
-        // Display response rows
-        echo "<tr>";
-        foreach ($feedbackData['responses'] as $response) {
-            echo "<td>$response</td>";
-        }
-        echo "</tr>";
-
-        echo "</table>";
-    } else {
-        echo "<p>No feedback available for $selectedEventName</p>";
-    }
-}
-
-
     // Function to fetch feedback data from the database
     function getFeedbackData($conn, $selectedEventId)
     {
@@ -177,19 +124,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die("Error fetching responses: " . mysqli_error($conn));
             }
 
-            $responseRow = mysqli_fetch_assoc($responsesResult);
-            $responses[] = ($responseRow) ? $responseRow['response'] : '';
+            // Fetch all responses for the current question
+            $questionResponses = [];
+            while ($responseRow = mysqli_fetch_assoc($responsesResult)) {
+                $questionResponses[] = $responseRow['response'];
+            }
+
+            $responses[$questionId] = $questionResponses;
         }
 
         return ['questions' => $questions, 'responses' => $responses];
     }
 
-    // Close the database connection
-    mysqli_close($conn);
-    ?>
 
+        // Assuming you have a database connection
+        $conn = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
+
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        // Handle form submission
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get selected event from the form
+        $selectedEventId = $_POST["event"];
+
+        // Fetch event name for the selected event
+        $eventNameQuery = "SELECT title FROM events_2 WHERE id = '$selectedEventId'";
+        $eventNameResult = mysqli_query($conn, $eventNameQuery);
+
+        if (!$eventNameResult) {
+            die("Error fetching event name: " . mysqli_error($conn));
+        }
+
+        $eventRow = mysqli_fetch_assoc($eventNameResult);
+        $selectedEventName = ($eventRow) ? $eventRow['title'] : '';
+
+        // Fetch and display feedback for the selected event
+        $feedbackData = getFeedbackData($conn, $selectedEventId);
+
+        // Display feedback in a table
+    if (!empty($feedbackData['questions']) && !empty($feedbackData['responses'])) {
+        echo "<h2>Feedback for $selectedEventName</h2>";
+
+        // Display header row with question_text as column titles
+        echo "<table border='1' style='width:70%; font-size: 14px;'>";
+
+        echo "<tr>";
+        foreach ($feedbackData['questions'] as $question) {
+            echo "<th>{$question['question_text']}</th>";
+        }
+        echo "</tr>";
+
+        // Display response rows
+        $numResponses = count($feedbackData['responses'][array_keys($feedbackData['responses'])[0]]);
+        for ($i = 0; $i < $numResponses; $i++) {
+            echo "<tr>";
+            foreach ($feedbackData['questions'] as $question) {
+                $questionId = $question['id'];
+                echo "<td>{$feedbackData['responses'][$questionId][$i]}</td>";
+            }
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "<p>No feedback available for $selectedEventName</p>";
+    }
+
+    }
+
+        // Close the database connection
+        mysqli_close($conn);
+        ?>
 </div>
-
 
 </body>
 </html>
