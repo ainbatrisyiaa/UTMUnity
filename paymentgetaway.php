@@ -20,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $stripe_secret_key = "sk_test_51OHRDwDcpo1c0G9vaQ7LbJA8Gd21QaGtWlqEoqfbGQntc280L3cSs06yUe1SsaqhKAGoyAzmybsg2rIOgtDN1s9F00BuO1cSks";
     \Stripe\Stripe::setApiKey($stripe_secret_key);
 
+    // Debugging: Output Stripe secret key
+    echo "Stripe Secret Key: " . $stripe_secret_key . "<br>";
+
     // Create a Checkout Session
     try {
         $checkout_session = \Stripe\Checkout\Session::create([
@@ -62,4 +65,5 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     http_response_code(400);
     die("Invalid request");
 }
+
 ?>
