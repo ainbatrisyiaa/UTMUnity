@@ -53,7 +53,7 @@
             }
 
             // Fetch events for the dropdown
-            $eventsQuery = "SELECT id, event_name FROM events";
+            $eventsQuery = "SELECT id, title FROM events_2";
             $eventsResult = mysqli_query($conn, $eventsQuery);
 
             if (!$eventsResult) {
@@ -64,7 +64,7 @@
             if (mysqli_num_rows($eventsResult) > 0) {
                 while ($eventRow = mysqli_fetch_assoc($eventsResult)) {
                     $eventId = $eventRow['id'];
-                    $eventName = $eventRow['event_name'];
+                    $eventName = $eventRow['title'];
                     echo "<option value='$eventId'>$eventName</option>";
                 }
             } else {
@@ -92,7 +92,7 @@
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $eventNameQuery = "SELECT event_name FROM events WHERE id = '$selectedEventId'";
+        $eventNameQuery = "SELECT title FROM events_2 WHERE id = '$selectedEventId'";
         $eventNameResult = mysqli_query($conn, $eventNameQuery);
 
         if (!$eventNameResult) {
@@ -100,7 +100,7 @@
         }
 
         $eventRow = mysqli_fetch_assoc($eventNameResult);
-        $selectedEventName = ($eventRow) ? $eventRow['event_name'] : '';
+        $selectedEventName = ($eventRow) ? $eventRow['title'] : '';
 
         // Fetch feedback data for the selected event
         $feedbackData = getFeedbackData($conn, $selectedEventId);
@@ -139,7 +139,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 // Display feedback report
 if (isset($feedbackData)) {
     echo "<h2>Feedback Report for $selectedEventName</h2>";
-    echo "<p>Number of Responses: " . count($feedbackData['responses']) . "</p>";
+    $numResponses = count($feedbackData['responses'][array_keys($feedbackData['responses'])[0]]);
+    echo "<p>Number of Responses: " . $numResponses . "</p>";
 
     // Download button for Excel file
     echo '<a href="javascript:void(0);" onclick="confirmDownload()">Download Excel</a>';
