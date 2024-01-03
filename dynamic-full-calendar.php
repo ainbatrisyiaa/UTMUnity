@@ -206,7 +206,7 @@
             },
             error: function (xhr, status) {
                 console.log('ajax error = ' + xhr.statusText);
-                alert(response.msg);
+                alert(xhr.responseText);
             }
         });
 
