@@ -1,3 +1,3 @@
 <?php 
-	$con=mysqli_connect("localhost","JelizaJustine","","volunteering_events");
+	$con=mysqli_connect("localhost","DevGenius","UTMUnity67","devgenius");
 ?>
