@@ -48,71 +48,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Information</title>
+    <title>Staff Information</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font: solid black;
             background-color: #a3e4d7;
-            padding: 10px;
-            margin: 0;
         }
 
-        .form-container {
-            max-width: 400px;
-            background-color: #ffffff;
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            width: 100%;
+            max-width: 500px;
             padding: 20px;
-            margin: 0 auto;
-            border: 1px solid #cccccc;
-            border-radius: 1px;
-            margin-top: 120px;
-        }
-
-        .form-container h4 {
-            text-align: center;
-            color: #4d4d4d;
-            text-transform: uppercase;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
 
-<div class="form-container">
-    <h4>Staff Information</h4>
-
+<div class="container">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <h2 class="text-center">Staff Profile</h2>
     <?php if (isset($user['name'], $user['email'])): ?>
-        <form method="post" action="">
-            <div class="form-group text-center">
-                <label for="Username">Name:</label>
+
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div class="form-group ">
+                <label for="Username">Username:</label>
                 <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" readonly>
             </div>
-            <div class="form-group text-center">
+            <div class="form-group ">
                 <label for="full_name">Full Name:</label>
                 <input type="text" class="form-control" id="full_name" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>" required>
             </div>
-            <div class="form-group text-center">
+            <div class="form-group ">
                 <label for="Phone">Phone Number:</label>
                 <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user['phone_number']); ?>" required>
             </div>
-            <div class="form-group text-center">
-                <label for="Student Email">Email:</label>
+            <div class="form-group ">
+                <label for="Staff Email">Email:</label>
                 <input type="text" class="form-control" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly>
             </div>
-            <div class="form-group text-center">
+            <div class="form-group">
                 <label for="name">Student ID:</label>
                 <input type="text" class="form-control" id="studentstaffid" name="studentstaffid" value="<?php echo htmlspecialchars($user['studentstaffid']); ?>" required>
             </div>
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary">Update Information</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Update Information</button>
             </div>
         </form>
     <?php else: ?>
         <p>Error: User data not available.</p>
     <?php endif; ?>
 </div>
-
-<!-- Additional content... -->
-
 </body>
 </html>

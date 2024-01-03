@@ -7,7 +7,7 @@ if (!$db_connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if (!isset($_SESSION['loggedin'])) {
+if (!isset($_SESSION['loggedin']))  {
     header('Location: main.php');
     exit;
 }

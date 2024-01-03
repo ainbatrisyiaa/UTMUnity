@@ -21,6 +21,7 @@ if (mysqli_num_rows($get_user) > 0) {
     header('Location: googlelogout.php');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
