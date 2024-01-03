@@ -29,7 +29,7 @@
 							if($res->num_rows>0){
 								$row=$res->fetch_assoc();
 								$_SESSION["login_info"]=$row;
-								header('location:home.php');
+								header('location:notification.php');
 							}else{
 								echo"<div class='alert alert-danger'>Invalid Login Details.</div>";
 							}
