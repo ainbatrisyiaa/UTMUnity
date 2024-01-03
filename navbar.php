@@ -28,7 +28,7 @@
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
 				<a class="nav-link" href="notification.php"><span class='fa fa-home'></span> Home</a>
-			</li>
+			</li> 
 			<li class="nav-item">
 				<a class="nav-link" href="add_reminder.php"><span class='fa fa-plus'></span> Add Reminder</a>
 			</li>

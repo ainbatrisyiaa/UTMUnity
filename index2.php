@@ -13,12 +13,12 @@
 			<span class="navbar-toggler-icon"></span>
 		  </button>
 		</nav>
-		<div class='container mt-3'>
+		<!--<div class='container mt-3'>
 			<div class="jumbotron"><h2 class='text-muted text-center'>Volunteering Events Reminder</h2></div>
 			<div class='row'>
 				<div class='col-md-5 mx-auto'>
 					<h3 class='text-muted text-center'>LOGIN</h3>
-					<?php 
+				<	<!--?php 
 						if(isset($_POST["login"])){
 							$_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 							$uname=mysqli_real_escape_string($con,$_POST["uname"]);
@@ -47,10 +47,10 @@
 						<div class="form-group">
 							<input type='submit' name='login' value='Login' class='btn btn-primary'>
 						</div>
-					</form>
+					</form> 
 				</div>
 				
 			</div>
-		</div>
+		</div> -->
 	</body>
 </html>
