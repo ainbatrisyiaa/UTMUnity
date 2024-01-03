@@ -138,7 +138,7 @@
                         title: result[i].title,
                         start: result[i].start,
                         end: result[i].end,
-                        color: "lightskyblue",   <!-- result[i].color, -->
+                        color: "lightskyblue",   // result[i].color
                         url: result[i].url
                     });
                 })
@@ -165,7 +165,7 @@
                 }); //end fullCalendar block	
             }, //end success block
             error: function (xhr, status) {
-                alert(response.msg);
+                alert(xhr.responseText);
             }
         });//end ajax block	
     }
