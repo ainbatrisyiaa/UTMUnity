@@ -1,11 +1,12 @@
 <?php
+
 $servername = "localhost";
 $username = "JelizaJustine";
 $password = "";
 $dbname = "volunteering_events";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname); 
 
 // Check connection
 if ($conn->connect_error) {
@@ -21,16 +22,15 @@ $student_id = $_POST['student_id'];
 $staff_id = $_POST['staff_id'];
 $faculty = $_POST['faculty'];
 $medical_info = $_POST['medical_info'];
-$event_name = $_POST['event_name'];
+$event_name = $_POST['event_name']; 
 
 // Insert data into database
 $sql = "INSERT INTO registration (full_name, email, phone_number, participant_type, student_id, staff_id, faculty, medical_info, event_name) 
         VALUES ('$full_name', '$email', '$phone_number', '$participant_type', '$student_id', '$staff_id', '$faculty', '$medical_info', '$event_name')";
 
+
 if ($conn->query($sql) === TRUE) {
     echo "Registration successful!";
-	header("Location: index1.php");
-    exit();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
@@ -38,3 +38,4 @@ if ($conn->query($sql) === TRUE) {
 // Close connection
 $conn->close();
 ?>
+
