@@ -1,10 +1,10 @@
 <?php
 //session_start();
-	require("configuration.php");
-	
-	/*if(!isset($_SESSION["login_info"])){
-		header("location:index2.php");
-	}*/
+require("configuration.php");
+
+/*if(!isset($_SESSION["login_info"])){
+    header("location:index2.php");
+}*/
 
 $reminders = [];
 $current_datetime = date("Y-m-d H:i:s");
@@ -21,23 +21,33 @@ if ($res->num_rows > 0) {
 
 # Send reminders via email
 foreach ($reminders as $reminder) {
-    $to = 'jelizajustine@graduate.utm.my'; // Replace with the actual recipient email address
-    $subject = "Upcoming Event Reminder";
-    $message = "<h3>Reminder for Event: {$reminder["event_name"]}</h3>";
-    $message .= "<p>Date: {$reminder["event_date"]}</p>";
-    $message .= "<p>Time: {$reminder["event_time"]}</p>";
-    $header = "From: jelizajustine@graduate.utm.my" . "\r\n";
-    $header .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $header .= "Content-type: text/html; charset=iso-8859-1";
+    // Fetch email address from the google table based on user ID or some other identifier
+    $userId = $reminder["user_id"]; // Adjust this based on your database structure
+    $emailSql = "SELECT email FROM google WHERE id = '{$userId}'";
+    $emailResult = $con->query($emailSql);
 
-    $response = mail($to, $subject, $message, $header);
+    if ($emailResult->num_rows > 0) {
+        $emailRow = $emailResult->fetch_assoc();
+        $to = $emailRow["email"];
+        $subject = "Upcoming Event Reminder";
+        $message = "<h3>Reminder for Event: {$reminder["event_name"]}</h3>";
+        $message .= "<p>Date: {$reminder["event_date"]}</p>";
+        $message .= "<p>Time: {$reminder["event_time"]}</p>";
+        $header = "From: jelizajustine@graduate.utm.my" . "\r\n";
+        $header .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+        $header .= "Content-type: text/html; charset=iso-8859-1";
 
-    if ($response == true) {
-        // Update the reminder status, e.g., mark it as sent
-        $sql = "UPDATE reminders SET status = 'sent' WHERE ID = '{$reminder["ID"]}'";
-        $con->query($sql);
+        $response = mail($to, $subject, $message, $header);
+
+        if ($response == true) {
+            // Update the reminder status, e.g., mark it as sent
+            $sql = "UPDATE reminders SET status = 'sent' WHERE ID = '{$reminder["ID"]}'";
+            $con->query($sql);
+        } else {
+            echo "Mail send failed for event: {$reminder["event_name"]}";
+        }
     } else {
-        echo "Mail send failed for event: {$reminder["event_name"]}";
+        echo "User not found for event: {$reminder["event_name"]}";
     }
 }
 
