@@ -1,3 +1,22 @@
+<?php
+$servername = "localhost";
+$username = "DevGenius";
+$password = "UTMUnity67";
+$dbname = "devgenius";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch events from the database
+$sql = "SELECT * FROM events_2 LIMIT 4";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,30 +72,26 @@
         <h1>Charity</h1>
     </header>
 
-    <!-- Events List -->
-    <div class="event" onclick="redirectToEvent('event_details.php')">
-        <img src="animals.png" alt="Event A">
-        <h2>Guardians of the Wild: Save Animals Life</h2>
-    </div>
+    <?php
+    // Check if there are events to display
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="event">';
+            echo '<img src="C:\xampp\htdocs\UTMUnity\events' . $row['image'] . '" alt="' . $row['title'] . '">';
+            // Create a hyperlink to the event details page with id as a parameter
+            echo '<h2><a href="event_details.php?id=' . $row['id'] . '">' . $row['title'] . '</a></h2>';
+            echo '</div>';
+        }
+    } else {
+        echo '<p>No events found.</p>';
+    }
 
-    <div class="event" onclick="redirectToEvent('event_details_2.php')">
-        <img src="poor.png" alt="Event B">
-        <h2>Hearts United: Meet Poor People</h2>
-    </div>
-
-    <div class="event" onclick="redirectToEvent('event_details_3.php')">
-        <img src="tree.jpg" alt="Event C">
-        <h2>Roots of Change: The Tree Planting Movement</h2>
-    </div>
+    // Close the database connection
+    $conn->close();
+    ?>
 
 </div>
-
-<script>
-    // JavaScript function to redirect to individual event pages
-    function redirectToEvent(eventPage) {
-        window.location.href = eventPage;
-    }
-</script>
 
 </body>
 </html>

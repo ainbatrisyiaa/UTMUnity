@@ -1,93 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #a3e4d7;
-            margin: 0;
-            padding: 0;
-        }
+<?php
+$servername = "localhost";
+$username = "DevGenius";
+$password = "UTMUnity67";
+$dbname = "devgenius";
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            overflow: hidden;
-        }
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-        }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-        .event-details {
-            margin: 20px;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
+// Get id from the URL
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-        .event img {
-            max-width: 70%; /* Set the maximum width to 70% */
-            height: auto; /* Maintain the aspect ratio */
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+    // Fetch event details from the database based on id
+    $sql = "SELECT * FROM events_2 WHERE id = $id";
+    $result = $conn->query($sql);
 
-        .event-name {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 
-        .donate-button {
-            margin: 20px;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+    // Display event details with your provided styles
+    echo '<!DOCTYPE html>';
+    echo '<html lang="en">';
+    echo '<head>';
+    echo '<meta charset="UTF-8">';
+    echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+    echo '<title>Event Details</title>';
 
-<div class="container">
-    <header>
-        <h2>Charity</h2>
-    </header>
+    // Include your provided styles
+    echo '<style>';
+    echo 'body {';
+    echo '    font-family: Arial, sans-serif;';
+    echo '    background-color: #a3e4d7;';
+    echo '    margin: 0;';
+    echo '    padding: 0;';
+    echo '}';
+    echo '.container {';
+    echo '    max-width: 800px;';
+    echo '    margin: 50px auto;';
+    echo '    background-color: #ffffff;';
+    echo '    border-radius: 10px;';
+    echo '    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);';
+echo '    text-align: center;';
+echo '    overflow: hidden;';
+echo '}';
+echo 'header {';
+echo '    background-color: #4CAF50;';
+echo '    color: white;';
+echo '    padding: 20px;';
+echo '    border-radius: 10px 10px 0 0;';
+echo '}';
+echo '.event-details {';
+echo '    margin: 20px;';
+echo '    padding: 20px;';
+echo '    border-radius: 5px;';
+echo '    background-color: #f9f9f9;';
+echo '}';
+echo '.event img {';
+echo '    max-width: 70%;';
+echo '    height: auto;';
+echo '    border-radius: 5px;';
+echo '    margin-bottom: 10px;';
+echo '}';
+echo '.event-name {';
+echo '    font-size: 24px;';
+echo '    margin-bottom: 10px;';
+echo '}';
+echo '.donate-button {';
+echo '    margin: 20px;';
+echo '    padding: 10px;';
+echo '    background-color: #4CAF50;';
+echo '    color: white;';
+echo '    border: none;';
+echo '    border-radius: 5px;';
+    echo '    cursor: pointer;';
+    echo '}';
+    echo '</style>';
+        echo '</head>';
+        echo '<body>';
 
-    <!-- Event Details -->
-    <div class="event-details">
-        <div class="event">
-            <img src="animals.png" alt="Event A">
-            <div class="event-name">Save Animals Life</div>
-        </div>
-        
-        <p>Our campaign serves as a beacon of hope, rallying individuals, communities, and organizations to join hands in safeguarding the vulnerable and voiceless. From majestic elephants to delicate butterflies, every species plays a crucial role in maintaining the delicate balance of our ecosystems. Through advocacy, education, and concrete action, we strive to ensure that future generations inherit a world teeming with biodiversity and wonder.</p>
-    </div>
+        echo '<div class="container">';
+        echo '<header>';
+        echo '<h2>Charity</h2>';
+        echo '</header>';
 
-    <!-- Donate Now Button -->
-    <button class="donate-button" onclick="redirectToDonation('Event Title')">Donate Now</button>
+        echo '<div class="event-details">';
+        echo '<img src="' . $row['image'] . '" alt="' . $row['title'] . '">';
+        echo '<h2 class="event-name">' . $row['title'] . '</h2>';
+        echo '<p>' . $row['description'] . '</p>';
+        echo '<p>' . $row['details'] . '</p>';
+        // Add any other event details you want to display
+        echo '</div>';
 
-</div>
+        // Add the Donate Now button with the JavaScript function
+        echo '<button class="donate-button" onclick="redirectToDonation(\'' . $row['title'] . '\')">Donate Now</button>';
 
+        echo '</div>';
+        echo '</body>';
+        echo '</html>';
+    } else {
+        echo '<p>Event not found.</p>';
+    }
+} else {
+    echo '<p>Invalid request.</p>';
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+<!-- JavaScript function to redirect to donation page -->
 <script>
-    // JavaScript function to redirect to donation_page.php with selected event
-    function redirectToDonation(eventName) {
-        window.location.href = 'Donationdetails.php?event=' + encodeURIComponent(eventName);
+    function redirectToDonation(eventTitle) {
+        // Redirect to the donate.php page with the event title as a parameter
+        window.location.href = 'Donationdetails.php?id' + encodeURIComponent(eventTitle);
     }
 </script>
-
-</body>
-</html>
-
