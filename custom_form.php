@@ -152,13 +152,36 @@
             <!-- End of open and close date/time fields -->
 
             <h1>Feedback Form</h1>
-            <!-- Add this section in the form -->
-            <!--<label>FULL NAME:</label>
-            <input type='text' name='your_name'><br>-->
 
             <label>EVENT NAME:</label>
-            <input type='text' name='event_name'><br>
+                <select name="event_name" id="event_id" required>
+                    <?php
+                    // Assuming you have a database connection established
+                    $conn = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
 
+                    // Fetch events for the dropdown
+                    $eventsQuery = "SELECT id, title FROM events_2";
+                    $eventsResult = mysqli_query($conn, $eventsQuery);
+
+                    if (!$eventsResult) {
+                        die("Error fetching events: " . mysqli_error($conn));
+                    }
+
+                    // Check if any events are retrieved
+                    if (mysqli_num_rows($eventsResult) > 0) {
+                        while ($eventRow = mysqli_fetch_assoc($eventsResult)) {
+                            $eventId = $eventRow['id'];
+                            $eventName = $eventRow['title'];
+                            echo "<option value='$eventName'>$eventName</option>";
+                        }
+                    } else {
+                        echo "<option value='' disabled selected>No events available</option>";
+                    }
+
+                    // Close the database connection
+                    mysqli_close($conn);
+                    ?>
+                </select>
             <label>ORGANIZER:</label>
             <input type='text' name='organizer'><br>
 
