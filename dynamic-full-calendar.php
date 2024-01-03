@@ -164,8 +164,9 @@
                     }
                 }); //end fullCalendar block	
             }, //end success block
-            error: function (xhr, status) {
-                alert(response.msg);
+            error: function (xhr, status, error) {
+                console.log('AJAX Error:', xhr.responseText);
+			alert("An error occurred. Please try again.");
             }
         });//end ajax block	
     }
