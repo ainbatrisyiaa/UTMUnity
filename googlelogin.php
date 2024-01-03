@@ -1,11 +1,14 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED);
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 session_start();
 require 'studentstaffdb.php';
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-if (isset($_SESSION['loggedin'])) {
+require 'google-api-php-client-2.4.0/vendor/autoload.php';
+
+// Function to redirect user based on category
+function redirectUser() {
     switch ($_SESSION["category"]) {
         case 'Student':
             header("location: studenthome.php");
@@ -17,160 +20,12 @@ if (isset($_SESSION['loggedin'])) {
             header("location: orgzhome.php");
             break;
         default:
-            header("location: googlelogin.php");
+            header("location: test.php");
             break;
     }
     exit;
 }
-
-require 'google-api-php-client-2.4.0/vendor/autoload.php';
-
-// Creating a new Google client instance
-$client = new Google_Client();
-$client->setClientId('420005998744-2r8ft5v6v6hqub65mi00t2ueg2o30oav.apps.googleusercontent.com');
-$client->setClientSecret('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');
-$client->setRedirectUri('http://localhost/UTMUnity/googlelogin.php');
-$client->addScope("email");
-$client->addScope("profile");
-
-// Database connection
-$db_connection = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
-if (!$db_connection) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-if (isset($_GET['code'])) {
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-
-    if (!isset($token["error"])) {
-        $client->setAccessToken($token['access_token']);
-        // Getting profile information
-        $google_oauth = new Google_Service_Oauth2($client);
-        $google_account_info = $google_oauth->userinfo->get();
-
-        // Storing data into the database
-        $id = mysqli_real_escape_string($db_connection, $google_account_info->id);
-        $name = mysqli_real_escape_string($db_connection, trim($google_account_info->name));
-        $email = mysqli_real_escape_string($db_connection, $google_account_info->email);
-        $profile_pic = mysqli_real_escape_string($db_connection, $google_account_info->picture);
-
-        // Checking if the user already exists or not
-        $get_user = mysqli_query($db_connection, "SELECT `oauth_id`, `category` FROM `google` WHERE `oauth_id`='$id'");
-
-        if (mysqli_num_rows($get_user) > 0) {
-            $row = mysqli_fetch_assoc($get_user);
-            $_SESSION['loggedin'] = $id;
-            $_SESSION['category'] = $row['category'];
-            redirectUser();
-        } else {
-            // If the user does not exist, insert the user
-            header("Location: test.php?id=$id&name=$name&email=$email");
-
-            // Insert user after redirection
-            $insert = mysqli_query($db_connection, "INSERT INTO `google`(`oauth_id`,`name`,`email`) VALUES('$id','$name','$email')");
-
-            if ($insert) {
-                // Fetch the category for the user
-                $result = mysqli_query($db_connection, "SELECT `category` FROM `google` WHERE `oauth_id`='$id'");
-
-                if ($result) {
-                    $row = mysqli_fetch_assoc($result);
-                    $_SESSION['loggedin'] = $id;
-                    $_SESSION['category'] = $row['category'];
-                    redirectUser();
-                } else {
-                    echo "Error fetching category from the database.";
-                }
-            } else {
-                echo "Sign up failed! (Something went wrong).";
-            }
-        }
-    } else {
-        header('Location: googlelogin.php');
-        exit;
-    }
-} else {
-    // Google Login URL
-    $google_login_url = $client->createAuthUrl();
-    
-    // Redirect logged-in users to the appropriate landing page
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-        redirectUser();
-        exit;
-    }
-
-    $login_err = $name = $name_err = $password_err = '';
-
-    // Process form data when submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Check if name is empty
-        if (empty(trim($_POST["name"]))) {
-            $name_err = "Please enter name.";
-        } else {
-            $name = trim($_POST["name"]);
-        }
-
-        // Check if password is empty
-        if (empty(trim($_POST["password"]))) {
-            $password_err = "Please enter your password.";
-        } else {
-            $password = trim($_POST["password"]);
-        }
-
-        // Validate credentials
-        if (empty($name_err) && empty($password_err)) {
-            // Prepare a select statement
-            $sql = "SELECT id, name, password, category FROM google WHERE name = ?";
-
-            if ($stmt = mysqli_prepare($db_connection, $sql)) {
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_name);
-
-                // Set parameters
-                $param_name = $name;
-
-                // Attempt to execute the prepared statement
-                if (mysqli_stmt_execute($stmt)) {
-                    // Store result
-                    mysqli_stmt_store_result($stmt);
-
-                    // Check if name exists, if yes, then verify the password
-                    if (mysqli_stmt_num_rows($stmt) == 1) {
-                        // Bind result variables
-                        mysqli_stmt_bind_result($stmt, $id, $name, $hashed_password, $category);
-                        if (mysqli_stmt_fetch($stmt)) {
-                            if (password_verify($password, $hashed_password)) {
-                                // Password is correct, so start a new session
-                                $_SESSION["loggedin"] = true;
-                                $_SESSION["id"] = $id;
-                                $_SESSION["name"] = $name;
-                                $_SESSION["category"] = $category;
-                                redirectUser();
-                            } else {
-                                // Password is not valid, display a generic error message
-                                $login_err = "Invalid name or password.";
-                            }
-                        }
-                    } else {
-                        // name doesn't exist, display a generic error message
-                        $login_err = "Invalid username or password.";
-                    }
-                } else {
-                    echo "Oops! Something went wrong. Please try again later.";
-                }
-
-                // Close statement
-                mysqli_stmt_close($stmt);
-            }
-        }
-
-        // Close connection
-        mysqli_close($db_connection);
-    }
-}
-
-// Function to redirect user based on category
-function redirectUser() {
+function redirectUsers() {
     switch ($_SESSION["category"]) {
         case 'Student':
             header("location: welcome.php");
@@ -187,7 +42,180 @@ function redirectUser() {
     }
     exit;
 }
+
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+if (isset($_SESSION['loggedin'])) {
+    redirectUsers();
+}
+
+// Google Login Section
+$client = new Google_Client();
+$client->setClientId('420005998744-2r8ft5v6v6hqub65mi00t2ueg2o30oav.apps.googleusercontent.com');
+$client->setClientSecret('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');
+$client->setRedirectUri('http://localhost/UTMUnity/googlelogin.php');
+$client->addScope("email");
+$client->addScope("profile");
+
+// Database connection
+$db_connection = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
+if (!$db_connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$name = $password = $name_err = $password_err = $login_err = '';
+
+// Process form data when submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if name is empty
+    if (empty(trim($_POST["name"]))) {
+        $name_err = "Please enter name.";
+    } else {
+        $name = trim($_POST["name"]);
+    }
+
+    // Check if password is empty
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter your password.";
+    } else {
+        $password = trim($_POST["password"]);
+    }
+
+    // Validate credentials
+    if (empty($name_err) && empty($password_err)) {
+        // Prepare a select statement
+        $sql = "SELECT id, name, password, category FROM google WHERE name = ?";
+
+        if ($stmt = mysqli_prepare($db_connection, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_name);
+
+            // Set parameters
+            $param_name = $name;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if name exists, if yes, then verify the password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $name, $hashed_password, $category);
+                    if (mysqli_stmt_fetch($stmt)) {
+                        if (password_verify($password, $hashed_password)) {
+                            // Password is correct, so start a new session
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["name"] = $name;
+                            $_SESSION["category"] = $category;
+                            redirectUsers();
+                        } else {
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid name or password.";
+                        }
+                    }
+                } else {
+                    // name doesn't exist, display a generic error message
+                    $login_err = "Invalid username or password.";
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Close connection
+    mysqli_close($db_connection);
+}
+
+
+
+if (isset($_GET['code'])) {
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+
+    if (!isset($token["error"])) {
+        $client->setAccessToken($token['access_token']);
+        // Getting profile information
+        $google_oauth = new Google_Service_Oauth2($client);
+        $google_account_info = $google_oauth->userinfo->get();
+
+        // Storing data into the database
+        $id = mysqli_real_escape_string($db_connection, $google_account_info->id);
+        $name = mysqli_real_escape_string($db_connection, trim($google_account_info->name));
+        $email = mysqli_real_escape_string($db_connection, $google_account_info->email);
+
+        // Checking if the user already exists or not
+        $get_user = mysqli_query($db_connection, "SELECT `oauth_id`, `category` FROM `google` WHERE `oauth_id`='$id'");
+
+        if (mysqli_num_rows($get_user) > 0) {
+            $row = mysqli_fetch_assoc($get_user);
+            $_SESSION['loggedin'] = $id;
+            $_SESSION['category'] = $row['category'];
+            redirectUser();
+
+        } else {
+            $redirectUrl = "googlelogin.php";
+            // If the user does not exist, prompt for category
+            echo '<script>
+                    var userCategory = prompt("Hello New User! Please enter your role (Student, Staff, Organization):");
+                    if(userCategory !== null && userCategory !== "") {
+                        // Insert the user with the specified category
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "insert_user.php", true);
+                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var response = xhr.responseText;
+                                if (response === "success") {
+                                    // Redirect based on the selected category
+                                    switch (userCategory.toLowerCase()) {
+                                        case "student":
+                                            window.location.href = "studenthome.php";
+                                            break;
+                                        case "staff":
+                                            window.location.href = "staffhome.php";
+                                            break;
+                                        case "organization":
+                                            window.location.href = "orgzhome.php";
+                                            break;
+                                        default:
+                                            alert("Invalid category selected.");
+                                            window.location.href = "' . $redirectUrl . '";
+                                            break;
+                                    }
+                                } else {
+                                    alert("Sign up failed! (Something went wrong).");
+                                }
+                            }
+                        };
+                        
+                        xhr.send("id=" + encodeURIComponent("' . $id . '") + "&name=" + encodeURIComponent("' . $name . '") + "&email=" + encodeURIComponent("' . $email . '") + "&category=" + encodeURIComponent(userCategory));
+                    } else {
+                        alert("Sign up canceled.");
+                        window.location.href = "' . $redirectUrl . '";
+                    }
+                </script>';
+        }
+    } else {
+        header('Location: googlelogin.php');
+        exit;
+    }
+} else {
+    // Google Login URL
+    $google_login_url = $client->createAuthUrl();
+
+    // Redirect logged-in users to the appropriate landing page
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+        redirectUser();
+        exit;
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -195,7 +223,7 @@ function redirectUser() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Google</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         *,
@@ -323,15 +351,11 @@ function redirectUser() {
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-
-            <p> OR login with
-
             <div class="_container btn">
-                <a type="button" class="login-with-google-btn" href="<?php echo $google_login_url; ?>">
-                    Sign in with Google
-                </a>
-            </div>
-
+            <a type="button" class="login-with-google-btn" href="<?php echo $google_login_url; ?>">
+                Sign in with Google
+            </a>
+        </div>
             <p>Don't have an account? <a href="userregister.php">Sign up now</a>.</p>
         </form>
     </div>

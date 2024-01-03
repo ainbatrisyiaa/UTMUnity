@@ -7,27 +7,27 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: googlelogin.php");
+    header("location: userlogin.php");
     exit;
 }
 
 // Define variables and initialize with empty values
-$name = $full_name = $phone_number = $email = "";
-$name_err = $full_name_err = $phone_number_err = $email_err = "";
+$name = $full_name = $phone_number = $email = $studentstaffid = "";
+$name_err = $full_name_err = $phone_number_err = $email_err = $studentstaffid_err = "";
 
 // Fetch user profile from the database
-$sql = "SELECT name, full_name, phone_number, email FROM google WHERE id = ?";
+$sql = "SELECT name, full_name, phone_number, email, studentstaffid FROM google WHERE id = ?";
 if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_bind_param($stmt, "i", $_SESSION["id"]);
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_store_result($stmt);
-        mysqli_stmt_bind_result($stmt, $name, $full_name, $phone_number, $email);
+        mysqli_stmt_bind_result($stmt, $name, $full_name, $phone_number, $email, $studentstaffid);
         mysqli_stmt_fetch($stmt);
     }
     mysqli_stmt_close($stmt);
 }
 
-// Process form data when form is submitted
+// Process form data when the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     if (empty(trim($_POST["name"]))) {
@@ -61,17 +61,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = trim($_POST["email"]);
     }
 
+    // Validate studentstaffid
+    if (empty(trim($_POST["studentstaffid"]))) {
+        $studentstaffid_err = "Please enter your student ID.";
+    } else {
+        $studentstaffid = trim($_POST["studentstaffid"]);
+    }
+
     // Check input errors before updating the database
-    if (empty($name_err) && empty($full_name_err) && empty($phone_number_err) && empty($email_err)) {
+    if (empty($name_err) && empty($full_name_err) && empty($phone_number_err) && empty($email_err) && empty($studentstaffid_err)) {
         // Update user profile in the database
-        $sql = "UPDATE google SET name=?, full_name=?, phone_number=?, email=? WHERE id=?";
+        $sql = "UPDATE google SET name=?, full_name=?, phone_number=?, email=?, studentstaffid=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ssssi", $name, $full_name, $phone_number, $email, $_SESSION["id"]);
+            mysqli_stmt_bind_param($stmt, "sssssi", $name, $full_name, $phone_number, $email, $studentstaffid, $_SESSION["id"]);
 
             if (mysqli_stmt_execute($stmt)) {
                 // Profile updated successfully
-                header("location: userprofile.php");
+                header("location: studentprofile.php");
                 exit;
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -97,15 +104,18 @@ mysqli_close($link);
         body {
             font: solid black;
             background-color: #a3e4d7;
+        }
+
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .container {
+        form {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -115,8 +125,9 @@ mysqli_close($link);
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">Organization Profile</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h2 class="text-center">Organization Profile</h2>
+
             <div class="form-group">
                 <label>Organization Username</label>
                 <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
@@ -140,6 +151,7 @@ mysqli_close($link);
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
+
 
             <div class="form-group">
                 <input type="submit" class="btn btn-primary btn-block" value="Update Profile">

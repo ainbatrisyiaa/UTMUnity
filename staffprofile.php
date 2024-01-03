@@ -27,7 +27,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     mysqli_stmt_close($stmt);
 }
 
-// Process form data when form is submitted
+// Process form data when the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     if (empty(trim($_POST["name"]))) {
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
                 // Profile updated successfully
-                header("location: staffprofile.php");
+                header("location: studentprofile.php");
                 exit;
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -97,22 +97,25 @@ mysqli_close($link);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>Staff Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Add your custom styles if needed -->
     <style>
         body {
             font: solid black;
             background-color: #a3e4d7;
+        }
+
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .container {
+        form {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -122,10 +125,11 @@ mysqli_close($link);
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">Staff Profile</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h2 class="text-center">Staff Profile</h2>
+
             <div class="form-group">
-                <label>name</label>
+                <label>Username</label>
                 <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>

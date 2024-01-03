@@ -21,6 +21,7 @@ if (mysqli_num_rows($get_user) > 0) {
     header('Location: googlelogout.php');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -183,7 +184,7 @@ if (mysqli_num_rows($get_user) > 0) {
 <div class="content-section">
     <div class="button-wrapper">
             <!-- Clickable Image 1 -->
-            <a href="events.php">
+            <a href="index1.php">
                 <img src="event-volunteers.jpg" alt="Image 1">
                 <div class="label">Events</div>
             </a>

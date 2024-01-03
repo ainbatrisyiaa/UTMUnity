@@ -7,7 +7,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: userlogin.php");
+    header("location: googlelogin.php");
     exit;
 }
 
@@ -115,7 +115,7 @@ mysqli_close($link);
 
         form {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -129,7 +129,7 @@ mysqli_close($link);
             <h2 class="text-center">Student Profile</h2>
 
             <div class="form-group">
-                <label>Name</label>
+                <label>Username</label>
                 <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>
