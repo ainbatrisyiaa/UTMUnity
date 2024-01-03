@@ -26,7 +26,7 @@ header{background-color:#a3e4d7;}
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">About us</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Get Involved</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact Us</a>
-    <a href="userlogin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
+    <a href="googlelogin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
   </div>
   
 
@@ -44,7 +44,7 @@ header{background-color:#a3e4d7;}
 <img src="logo.png" alt="Anchor Image" width="300" height="300">
   <h1 class="w3-margin w3-jumbo">UTM Unity : Volunteer & Serve</h1>
   <p class="w3-xlarge">Our mission is to connect volunteers and organizations, fostering community engagement and positive change. We provide a comprehensive platform with features  to empower individuals and organizations to make a lasting impact on their communities.</p>
-  <a href="userlogin.php" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</a>
+  <a href="googlelogin.php" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</a>
 </header>
 
 <!-- First Grid -->
