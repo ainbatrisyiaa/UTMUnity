@@ -138,7 +138,7 @@
                         title: result[i].title,
                         start: result[i].start,
                         end: result[i].end,
-                        color: "lightskyblue",   <!-- result[i].color, -->
+                        color: "lightskyblue",   // result[i].color
                         url: result[i].url
                     });
                 })
@@ -164,10 +164,10 @@
                     }
                 }); //end fullCalendar block	
             }, //end success block
+
             error: function (xhr, status, error) {
                 console.log('AJAX Error:', xhr.responseText);
-			alert("An error occurred. Please try again.");
-            }
+			alert("An error occurred. Please try again.");}
         });//end ajax block	
     }
 	
@@ -207,7 +207,7 @@
             },
             error: function (xhr, status) {
                 console.log('ajax error = ' + xhr.statusText);
-                alert(response.msg);
+                alert(xhr.responseText);
             }
         });
 

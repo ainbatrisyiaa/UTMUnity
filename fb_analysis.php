@@ -79,6 +79,7 @@
     </form>
 
 <?php
+    session_start();
     // Handle form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get selected event from the form
@@ -117,6 +118,12 @@
             $questionOptionsMap[$optionsRow['id']] = explode(',', $optionsRow['options']);
         }
 
+        // Store data in session
+        $_SESSION['selectedEventId'] = $selectedEventId;
+        $_SESSION['selectedEventName'] = $selectedEventName;
+        $_SESSION['feedbackData'] = $feedbackData;
+        $_SESSION['questionOptionsMap'] = $questionOptionsMap;
+
         // Close the database connection after fetching options
         mysqli_close($conn);
     }
@@ -124,123 +131,162 @@
 
 
 <?php
-    // Display feedback report
-    if (isset($feedbackData)) {
-        echo "<h2>Feedback Report for $selectedEventName</h2>";
-        echo "<p>Number of Responses: " . count($feedbackData['responses']) . "</p>";
 
-        // Start the flex container
-        echo '<div style="display: flex; flex-wrap: wrap;">';
+// Include PhpSpreadsheet classes
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-        // Render the charts using the fetched options
-        foreach ($feedbackData['questions'] as $question) {
-            $questionId = $question['id'];
-            $questionOptions = $questionOptionsMap[$questionId];
+// Display feedback report
+if (isset($feedbackData)) {
+    echo "<h2>Feedback Report for $selectedEventName</h2>";
+    echo "<p>Number of Responses: " . count($feedbackData['responses']) . "</p>";
 
-            // Set the width for each chart container
-            echo '<div style="width: 30%; margin: 20px;">';
-            echo '<h3>Question: ' . $question['question_text'] . '</h3>';
-            echo '<canvas id="feedbackChart' . $questionId . '"></canvas>';
-            echo '</div>';
-        }
+    // Download button for Excel file
+    echo '<a href="javascript:void(0);" onclick="confirmDownload()">Download Excel</a>';
 
-        echo '</div>'; // End the flex container
+    // Start the flex container
+    echo '<div style="display: flex; flex-wrap: wrap;">';
 
-        // Start the script block outside the loop
-        echo '<script>';
-        echo 'document.addEventListener("DOMContentLoaded", function () {';
+    // Render the charts using the fetched options
+    foreach ($feedbackData['questions'] as $question) {
+        $questionId = $question['id'];
+        $questionOptions = $questionOptionsMap[$questionId];
 
-        foreach ($feedbackData['questions'] as $question) {
-            $questionId = $question['id'];
-            $questionOptions = $questionOptionsMap[$questionId];
-
-            // Generate chart data for each question
-            $chartData = generateChartData($feedbackData['responses'][$questionId], $questionOptions);
-
-            // Output JavaScript for each chart
-            echo 'var ctx' . $questionId . ' = document.getElementById("feedbackChart' . $questionId . '").getContext("2d");';
-            echo 'var feedbackChart' . $questionId . ' = new Chart(ctx' . $questionId . ', {';
-            echo 'type: "bar",';
-            echo 'data: {';
-            echo 'labels: ' . json_encode($questionOptions) . ',';
-            echo 'datasets: [{';
-            echo 'label: "Responses",';
-            echo 'data: ' . json_encode(array_values($chartData)) . ',';
-            echo 'backgroundColor: "rgba(75, 192, 192, 0.2)",';
-            echo 'borderColor: "rgba(75, 192, 192, 1)",';
-            echo 'borderWidth: 1';
-            echo '}],';
-            echo '},';
-            echo 'options: {';
-            echo 'scales: {';
-            echo 'y: {';
-            echo 'beginAtZero: true';
-            echo '}';
-            echo '}';
-            echo '}';
-            echo '});';
-        }
-
-        echo '});';
-        echo '</script>';
+        // Set the width for each chart container
+        echo '<div style="width: 30%; margin: 20px;">';
+        echo '<h3>Question: ' . $question['question_text'] . '</h3>';
+        echo '<canvas id="feedbackChart' . $questionId . '"></canvas>';
+        echo '</div>';
     }
+
+    echo '</div>'; // End the flex container
+
+    // Start the script block outside the loop
+    echo '<script>';
+    echo 'document.addEventListener("DOMContentLoaded", function () {';
+
+    foreach ($feedbackData['questions'] as $question) {
+        $questionId = $question['id'];
+        $questionOptions = $questionOptionsMap[$questionId];
+
+        // Generate chart data for each question
+        $chartData = generateChartData($feedbackData['responses'][$questionId], $questionOptions);
+
+        // Output JavaScript for each chart
+        echo 'var ctx' . $questionId . ' = document.getElementById("feedbackChart' . $questionId . '").getContext("2d");';
+        echo 'var feedbackChart' . $questionId . ' = new Chart(ctx' . $questionId . ', {';
+        echo 'type: "bar",';
+        echo 'data: {';
+        echo 'labels: ' . json_encode($questionOptions) . ',';
+        echo 'datasets: [{';
+        echo 'label: "Responses",';
+        echo 'data: ' . json_encode(array_values($chartData)) . ',';
+        echo 'backgroundColor: "rgba(75, 192, 192, 0.2)",';
+        echo 'borderColor: "rgba(75, 192, 192, 1)",';
+        echo 'borderWidth: 1';
+        echo '}],';
+        echo '},';
+        echo 'options: {';
+        echo 'scales: {';
+        echo 'y: {';
+        echo 'beginAtZero: true';
+        echo '}';
+        echo '}';
+        echo '}';
+        echo '});';
+    }
+
+    echo '});';
+    echo '</script>';
+
+    // Check if the download_excel parameter is set in the URL
+    if (isset($_GET['download_excel']) && $_GET['download_excel'] == 1) {
+        downloadExcel($feedbackData, $questionOptionsMap);
+    }
+}
 ?>
 
-<?php
-    // Function to generate chart data from responses
-    function generateChartData($response, $options)
-    {
-        $chartData = array_fill_keys($options, 0);
+<script>
+function confirmDownload() {
+    var confirmMsg = "Are you sure you want to download the Excel file?";
+    if (confirm(confirmMsg)) {
+        // If user confirms, trigger the download
+        window.location.href = 'download_excel.php';
+    }
+}
+</script>
 
+<?php
+// Function to generate chart data from responses
+function generateChartData($responses, $options)
+{
+    $chartData = array_fill_keys($options, 0);
+
+    // Iterate through each response for the question
+    foreach ($responses as $response) {
         // Iterate through each character in the response
         foreach (str_split($response) as $selectedOption) {
             if (isset($chartData[$selectedOption])) {
                 $chartData[$selectedOption]++;
             }
         }
-
-        return $chartData;
     }
+
+    return $chartData;
+}
 ?>
+
 
 <?php
     // Function to fetch feedback data from the database
-    function getFeedbackData($conn, $selectedEventId)
-    {
-        // Escape user input to prevent SQL injection
-        $selectedEventId = mysqli_real_escape_string($conn, $selectedEventId);
+function getFeedbackData($conn, $selectedEventId)
+{
+    // Escape user input to prevent SQL injection
+    $selectedEventId = mysqli_real_escape_string($conn, $selectedEventId);
 
-        // Fetch questions for the selected event
-        $questionsQuery = "SELECT * FROM questions WHERE event_id = '$selectedEventId'";
-        $questionsResult = mysqli_query($conn, $questionsQuery);
+    // Fetch questions for the selected event using a prepared statement
+    $questionsQuery = "SELECT * FROM questions WHERE event_id = ?";
+    $questionsStmt = mysqli_prepare($conn, $questionsQuery);
+    mysqli_stmt_bind_param($questionsStmt, "i", $selectedEventId);
+    mysqli_stmt_execute($questionsStmt);
+    $questionsResult = mysqli_stmt_get_result($questionsStmt);
 
-        if (!$questionsResult) {
-            die("Error fetching questions: " . mysqli_error($conn));
-        }
-
-        $questions = [];
-        while ($questionRow = mysqli_fetch_assoc($questionsResult)) {
-            $questions[] = $questionRow;
-        }
-
-        // Fetch responses for each question
-        $responses = [];
-
-        foreach ($questions as $question) {
-            $questionId = $question['id'];
-            $responsesQuery = "SELECT response FROM responses WHERE event_id = '$selectedEventId' AND question_id = '$questionId'";
-            $responsesResult = mysqli_query($conn, $responsesQuery);
-
-            if (!$responsesResult) {
-                die("Error fetching responses: " . mysqli_error($conn));
-            }
-
-            $responseRow = mysqli_fetch_assoc($responsesResult);
-            $responses[$questionId] = ($responseRow) ? $responseRow['response'] : '';
-        }
-
-        return ['questions' => $questions, 'responses' => $responses];
+    if (!$questionsResult) {
+        die("Error fetching questions: " . mysqli_error($conn));
     }
+
+    $questions = [];
+    while ($questionRow = mysqli_fetch_assoc($questionsResult)) {
+        $questions[] = $questionRow;
+    }
+
+    // Fetch responses for each question
+    $responses = [];
+
+    foreach ($questions as $question) {
+        $questionId = $question['id'];
+        $responsesQuery = "SELECT response FROM responses WHERE event_id = ? AND question_id = ?";
+        $responsesStmt = mysqli_prepare($conn, $responsesQuery);
+        mysqli_stmt_bind_param($responsesStmt, "ii", $selectedEventId, $questionId);
+        mysqli_stmt_execute($responsesStmt);
+        $responsesResult = mysqli_stmt_get_result($responsesStmt);
+
+        if (!$responsesResult) {
+            die("Error fetching responses: " . mysqli_error($conn));
+        }
+
+        // Fetch all responses for the current question
+        $questionResponses = [];
+        while ($responseRow = mysqli_fetch_assoc($responsesResult)) {
+            $questionResponses[] = $responseRow['response'];
+        }
+
+        $responses[$questionId] = $questionResponses;
+    }
+
+    return ['questions' => $questions, 'responses' => $responses];
+}
+
 ?>
 </div>
 </body>
