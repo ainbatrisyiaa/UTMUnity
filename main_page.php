@@ -78,7 +78,7 @@ $result = $conn->query($sql);
         // Output data of each row
         while($row = $result->fetch_assoc()) {
             echo '<div class="event">';
-            echo '<img src="C:\xampp\htdocs\UTMUnity\events' . $row['image'] . '" alt="' . $row['title'] . '">';
+            echo '<img src="events/' . $row['image'] . '" alt="' . $row['title'] . '">';
             // Create a hyperlink to the event details page with id as a parameter
             echo '<h2><a href="event_details.php?id=' . $row['id'] . '">' . $row['title'] . '</a></h2>';
             echo '</div>';

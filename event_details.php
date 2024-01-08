@@ -89,7 +89,7 @@ echo '    border-radius: 5px;';
         echo '</header>';
 
         echo '<div class="event-details">';
-        echo '<img src="' . $row['image'] . '" alt="' . $row['title'] . '">';
+        echo '<img src="events/' . $row['image'] . '" alt="' . $row['title'] . '">';
         echo '<h2 class="event-name">' . $row['title'] . '</h2>';
         echo '<p>' . $row['description'] . '</p>';
         echo '<p>' . $row['details'] . '</p>';
