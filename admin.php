@@ -55,7 +55,7 @@
 
     <p>Total Donations</p>
 <div>
-    <canvas id="donationChart" width="200" height="200"></canvas>
+    <canvas id="donationChart" width="400" height="200"></canvas>
 </div>
 
     <?php
@@ -143,7 +143,6 @@ var donationChart = new Chart(ctxDonations, {
     data: {
         labels: <?php echo json_encode($event_name); ?>,
         datasets: [{
-            label: 'Total Donations',
             data: <?php echo json_encode($donate); ?>,
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
@@ -173,11 +172,13 @@ var donationChart = new Chart(ctxDonations, {
             y: {
                 beginAtZero: true
             }
-        }
+        },
+        barPercentage: 0.5, // Adjust as needed
+        categoryPercentage: 0.5 // Adjust as needed
     }
 });
-
 </script>
+
 
 
 </body>

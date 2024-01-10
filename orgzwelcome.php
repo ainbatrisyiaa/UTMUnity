@@ -13,9 +13,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-// Debugging: Print session variables
-var_dump($_SESSION);
-
 // Replace these values with your actual database credentials
 $servername = "localhost";
 $username = "DevGenius";

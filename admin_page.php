@@ -8,6 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background-image: url('bg.jpeg');
             background-color: #a3e4d7;
             margin: 0;
             padding: 0;
