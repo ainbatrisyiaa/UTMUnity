@@ -73,7 +73,7 @@
         }
 
         // Specify the event name you want to retrieve
-        $eventName = 'Save Animals Life'; // Replace with the actual event name you want
+        $eventName = 'Planting Tree Is Fun'; // Replace with the actual event name you want
 
         // Fetch event data for a specific event
         $result = $conn->query("
@@ -100,7 +100,7 @@
         $conn->close();
         ?>
 
-    <a href="welcome.php" class="back-to-home">Back to Home</a>
+    <a href="orgzwelcome.php" class="back-to-home">Back to Home</a>
     </div>
 </body>
 

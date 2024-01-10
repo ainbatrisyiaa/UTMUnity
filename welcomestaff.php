@@ -197,7 +197,7 @@ $conn->close();
                 <div class="label">Events</div>
             </a>
             <!-- Clickable Image 2 -->
-            <a href="main_page.php">
+            <a href="http://localhost/donation/main_page.php">
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>

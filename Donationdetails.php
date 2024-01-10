@@ -113,7 +113,7 @@
             <div class="section-header">Your Details</div>
              <!-- Add an event name input -->
             <label for="event_name">Event Name:</label>
-            <input type="text" id="event_name" name="event_name" value="Save Animals Life" readonly>
+            <input type="text" id="event_name" name="event_name" value="" required>
 
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" name="first_name" required>
