@@ -7,16 +7,34 @@
     <style>
         /* Add your CSS styles here or link to an external stylesheet */
         .content2 {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
+            margin-left: 370px;
+            text-align: left;
         }
 
-        .A {
+        select {
+            width: 300px; /* Adjust the width as needed */
+            padding: 8px; /* Adjust padding as needed */
+            font-size: 16px; /* Adjust font size as needed */
+            border-radius: 10px;
+        }
+
+        button {
+            width: 150px;
+            padding: 8px;
+            font-size: 16px; /* Adjust font size as needed */
+            border-radius: 10px;
+        }
+
+        .body2 {
             margin-left: 40px;
             font-family: Arial, Helvetica, sans-serif;
             /*background-color: #a3e4d7;*/
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
         }
     </style>
 
@@ -31,26 +49,32 @@
         <img id="second-logo" src="vol-club.png">
     </a>
     <div class="header-right">
-        <a href="#about">About Us</a>
-        <a href="#getIn">Get Involved</a>
-        <a href="#donate">Donate</a>
-        <a href="#contact">Contact</a>
-        <i class="fas fa-user profile-icon"></i> <!-- Font Awesome user icon -->
+        <a href="admin.php">Home</a>
+        <a href="admin_page.php">Donate</a>
+        <a href="orgFeedback.php">Feedback</a>
     </div>
 </div>
-<hr>
-<div class = "A">
-    <h1>Feedback Report</h1>
+
+    <div style="font-family: Arial; padding: 10px;">
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li style="display: inline-block; margin-right: 10px;">
+                <a href="orgFeedback.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Feedback</a>
+            </li>
+            <li style="display: inline-block; margin-right: 10px; font-weight: bold; color: #555;">&gt;&gt;</li>
+            <li style="display: inline-block;">
+                <a href="fb_analysis.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Feedback Report</a>
+            </li>
+        </ul>
+    </div>
+
+<div class="body2">
+    <h1>Program Feedback Report</h1>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="event">Select Event:</label>
         <select name="event" id="event">
             <?php
             // Assuming you have a database connection established
             $conn = mysqli_connect("localhost", "DevGenius", "UTMUnity67", "devgenius");
-
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
 
             // Fetch events for the dropdown
             $eventsQuery = "SELECT id, title FROM events_2";
@@ -78,7 +102,7 @@
         <button type="submit">View Feedback</button>
     </form>
 
-<?php
+    <?php
     session_start();
     // Handle form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -290,5 +314,6 @@ function getFeedbackData($conn, $selectedEventId)
 
 ?>
 </div>
+
 </body>
 </html>

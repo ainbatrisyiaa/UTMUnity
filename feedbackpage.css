@@ -1,13 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #ffffff;
-}
-
 .header {
     overflow: hidden;
     background-color: #a3e4d7;
@@ -96,7 +86,7 @@ body {
 
 .text-overlay {
     position: absolute;
-    top: 70%; /* Center the text vertically */
+    top: 100%; /* Center the text vertically */
     left: 50%; /* Center the text horizontally */
     transform: translate(-50%, -50%); /* Center the text precisely */
     text-align: center;
