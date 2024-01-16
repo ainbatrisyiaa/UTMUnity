@@ -13,9 +13,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-// Debugging: Print session variables
-var_dump($_SESSION);
-
 // Replace these values with your actual database credentials
 $servername = "localhost";
 $username = "DevGenius";
@@ -192,13 +189,8 @@ $conn->close();
     </div>   
         
         <div class="button-wrapper">
-            <!-- Clickable Image 1 -->
-            <a href="events.php">
-                <img src="event-volunteers.jpg" alt="Image 1">
-                <div class="label">Add Events</div>
-            </a>
             <!-- Clickable Image 2 -->
-            <a href="orgzdonate.php">
+            <a href="selectevent.php">
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>

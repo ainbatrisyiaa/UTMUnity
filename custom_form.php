@@ -127,12 +127,22 @@
             <img id="second-logo" src="vol-club.png">
         </a>
         <div class="header-right">
-            <a href="#about">About Us</a>
-            <a href="#getIn">Get Involved</a>
-            <a href="#donate">Donate</a>
-            <a href="#contact">Contact</a>
-            <i class="fas fa-user profile-icon"></i> <!-- Font Awesome user icon -->
+            <a href="admin.php">Home</a>
+            <a href="admin_page.php">Donate</a>
+            <a href="orgFeedback.php">Feedback</a>
         </div>
+    </div>
+
+    <div style="font-family: Arial;  padding: 10px;">
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li style="display: inline-block; margin-right: 10px;">
+                <a href="orgFeedback.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Feedback</a>
+            </li>
+            <li style="display: inline-block; margin-right: 10px; font-weight: bold; color: #555;">&gt;&gt;</li>
+            <li style="display: inline-block;">
+                <a href="custom_form.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Customize Form</a>
+            </li>
+        </ul>
     </div>
 
     <form action="insert_quest.php" method="post" id="myForm">

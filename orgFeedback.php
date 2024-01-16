@@ -1,34 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="feedbackpage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="fb_style.css">
+    <title>Your Feedback Page</title>
     <style>
-        /* Add your CSS styles here or link to an external stylesheet */
-        .content2 {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
+       body {
+            margin: 0;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("output-onlinepngtools.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #333; /* Set text color */
         }
 
-        /* Add your CSS styles here or link to an external stylesheet */
-        .big-button {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .big-button:hover {
-            background-color: #f0f0f0; /* Add a hover effect if needed */
+        .event-card-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Allow wrapping to the next line on smaller screens */
+            margin: 20px auto;
+            max-width: 800px; /* Set a maximum width for the container */
         }
 
         .event-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 15px;
+            margin: 10px;
+            background-color: #fff;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .event-card:hover {
+            transform: scale(1.02);
+        }
+
+        .big-button {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .big-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            text-align: center;
             margin-bottom: 20px;
+            margin-left: 100px;
+            margin-right: 100px;
         }
     </style>
 </head>
@@ -40,31 +88,19 @@
         <img id="second-logo" src="vol-club.png">
     </a>
     <div class="header-right">
-    <a href="#about">About Us</a>
-        <a href="#getIn">Get Involved</a>
-        <a href="#donate">Donate</a>
-        <a href="#contact">Contact</a>
-        <i class="fas fa-user profile-icon"></i> <!-- Font Awesome user icon -->
+        <a href="admin.php">Home</a>
+        <a href="admin_page.php">Donate</a>
+        <a href="orgFeedback.php">Feedback</a>
     </div>
 </div>
 
-<div class="content">
-    <a href="default" class="image">
-        <img id="image" src="feedback.png">
-    </a>
-
-    <div class="text-overlay">
-        <h1>Volunteering Feedback</h1>
-        <p>This feedback is valuable for organizations to enhance volunteer satisfaction, identify successful practices, and address any challenges, 
-            ultimately fostering a more rewarding and effective volunteer environment.</p>
-    </div>
+<div class="intro-text">
+    <h1>Volunteering Feedback</h1>
+    <p>This feedback is valuable for organizations to enhance volunteer satisfaction, identify successful practices, and address any challenges, 
+        ultimately fostering a more rewarding and effective volunteer environment.</p>
 </div>
 
-<div class="content2">
-<h2>Latest Event</h2>
-<p>Your feedback is important to us. Please share your thoughts and suggestions.</p>
-
-<div class="event-cards-container">
+<div class="event-card-container">
     <a href="custom_form.php" class="big-button">
         <div class="event-card">
             <h2>Customize Form</h2>
@@ -86,28 +122,5 @@
         </div>
     </a>
 </div>
-    
-    <!-- Worldwide Review Section -->
-    <div class="worldwide-review">
-        <h2>Worldwide Reviews</h2>
-        <div class="event-cards-container">
-            <div class="event-card">
-                <h2>Review 1</h2>
-                <p>Description of Review 1</p>
-            </div>
-
-            <div class="event-card">
-                <h2>Review 2</h2>
-                <p>Description of Review 2</p>
-            </div>
-
-            <div class="event-card">
-                <h2>Review 3</h2>
-                <p>Description of Review 3</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>

@@ -53,6 +53,11 @@
         
     </div>
 
+    <p>Total Donations</p>
+<div>
+    <canvas id="donationChart" width="400" height="200"></canvas>
+</div>
+
     <?php
         require_once "studentstaffdb.php";
 
@@ -106,5 +111,75 @@
             }
         });
     </script>
+
+<?php
+require_once "userdetails.php";
+
+// Fetch data from the database
+$result = $conn->query("
+    SELECT event_name, SUM(donate) as total_donation
+    FROM UserDetails
+    GROUP BY event_name
+");
+
+// Process data for Chart.js
+$event_name = [];
+$donate = [];
+while ($row = $result->fetch_assoc()) {
+    $event_name[] = $row['event_name'];
+    $donate[] = $row['total_donation'];
+}
+
+
+// Close the database connection (if needed)
+$conn->close();
+?>
+
+<script>
+// Use Chart.js to create a bar chart for total donations
+var ctxDonations = document.getElementById('donationChart').getContext('2d');
+var donationChart = new Chart(ctxDonations, {
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($event_name); ?>,
+        datasets: [{
+            data: <?php echo json_encode($donate); ?>,
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                // Add more colors as needed
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                // Add more colors as needed
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        barPercentage: 0.5, // Adjust as needed
+        categoryPercentage: 0.5 // Adjust as needed
+    }
+});
+</script>
+
+
+
 </body>
 </html>

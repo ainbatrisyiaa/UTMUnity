@@ -27,7 +27,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
         }
 
         .header .logo,
@@ -122,6 +122,9 @@
             margin-bottom: 20px;
             margin-top: 20px; /* Add margin at the top */
         }
+        .short-nav {
+            font-style: Verdana(sans serif);
+        }
     </style>
 </head>
 
@@ -133,13 +136,27 @@
             <img id="second-logo" src="vol-club.png">
         </a>
         <div class="header-right">
-            <a href="#about">About Us</a>
-            <a href="#getIn">Get Involved</a>
-            <a href="#donate">Donate</a>
-            <a href="#contact">Contact</a>
-            <i class="fas fa-user profile-icon"></i> <!-- Font Awesome user icon -->
+            <a href="welcome.php">About Us</a>
+            <a href="index1.php">Get Involved</a>
+            <a href="main_page.php">Donate</a>
+            <a href="feedback.php">Feedback</a>
+            <a href="studentprofile.php"><i class="fas fa-user profile-icon"></i></a>
         </div>
     </div>
+
+    <div style="font-family: Arial; background-color: #f0f0f0; padding: 10px;">
+    <ul style="list-style-type: none; padding: 0; margin: 0;">
+        <li style="display: inline-block; margin-right: 10px;">
+            <a href="feedback.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Feedback</a>
+        </li>
+        <li style="display: inline-block; margin-right: 10px; font-weight: bold; color: #555;">&gt;&gt;</li>
+        <li style="display: inline-block;">
+            <a href="view_form.php" style="text-decoration: none; color: #333; padding: 5px 10px; background-color: #ddd; border-radius: 5px;">Feedback Form</a>
+        </li>
+    </ul>
+</div>
+
+
 
     <div class="element">
         <div class="page">

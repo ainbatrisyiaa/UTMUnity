@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     try {
         $checkout_session = \Stripe\Checkout\Session::create([
             "mode" => "payment",
-            "success_url" => "http://localhost/DevGenius-main/thank_you.php",
-            "cancel_url" => "http://localhost/DevGenius-main/thank_you.php",
+            "success_url" => "http://localhost/UTMUnity/thank_you.php",
+            "cancel_url" => "http://localhost/UTMUnity/thank_you.php",
             "locale" => "auto",
             "payment_method_types" => ["card","grabpay","fpx","alipay"],
             "line_items" => [
@@ -65,5 +65,5 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     http_response_code(400);
     die("Invalid request");
 }
-header("Location:donationreceipt.php")
+
 ?>

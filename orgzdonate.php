@@ -8,24 +8,22 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background-image: url('bg2.jpg');
             background-color: #a3e4d7;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
         .admin-container {
-            width: 80%;
-            max-width: 600px;
+            width: 600px;
             background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            text-align: center;
         }
 
         .total-donation {
@@ -73,7 +71,7 @@
         }
 
         // Specify the event name you want to retrieve
-        $eventName = 'Save Animals Life'; // Replace with the actual event name you want
+        $eventName = 'Planting Tree Is Fun'; // Replace with the actual event name you want
 
         // Fetch event data for a specific event
         $result = $conn->query("
@@ -100,7 +98,7 @@
         $conn->close();
         ?>
 
-    <a href="welcome.php" class="back-to-home">Back to Home</a>
+    <a href="orgzwelcome.php" class="back-to-home">Back to Home</a>
     </div>
 </body>
 
