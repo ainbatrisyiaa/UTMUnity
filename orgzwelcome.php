@@ -189,7 +189,7 @@ $conn->close();
         
         <div class="button-wrapper">
             <!-- Clickable Image 2 -->
-            <a href="orgzdonate.php">
+            <a href="selectevent.php">
                 <img src="Donate.jpg" alt="Image 2">
                 <div class="label">Donation</div>
             </a>
