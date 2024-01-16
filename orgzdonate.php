@@ -44,9 +44,24 @@
             border-radius: 5px;
             transition: background-color 0.3s;
             display: inline-block;
+            margin-right: 10px;
         }
 
         .back-to-home:hover {
+            background-color: #CC6640;
+        }
+
+        .view-invoice {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4682B4;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .view-invoice:hover {
             background-color: #CC6640;
         }
     </style>
@@ -62,7 +77,6 @@
         $username = "DevGenius";
         $password = "UTMUnity67";
         $dbname = "devgenius";
-
 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -91,6 +105,9 @@
             echo "<p>Event Name: " . $eventName . "</p>";
             echo "<p>Total Donation: $" . number_format($totalDonation, 2) . "</p>";
             echo "</div>";
+
+            // Add a link to view the invoice
+            echo "<a href='invoice.php?event=$eventName' class='view-invoice'>View Invoice</a>";
         } else {
             echo "<p class='no-event'>Event not found</p>";
         }
@@ -98,7 +115,7 @@
         $conn->close();
         ?>
 
-    <a href="orgzwelcome.php" class="back-to-home">Back to Home</a>
+        <a href="orgzwelcome.php" class="back-to-home">Back to Home</a>
     </div>
 </body>
 
