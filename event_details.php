@@ -24,62 +24,64 @@ if(isset($_GET['id'])) {
         $row = $result->fetch_assoc();
 
     // Display event details with your provided styles
-    echo '<!DOCTYPE html>';
-    echo '<html lang="en">';
-    echo '<head>';
-    echo '<meta charset="UTF-8">';
-    echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-    echo '<title>Event Details</title>';
+        echo '<!DOCTYPE html>';
+        echo '<html lang="en">';
+        echo '<head>';
+        echo '<meta charset="UTF-8">';
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        echo '<title>Event Details</title>';
 
-    // Include your provided styles
-    echo '<style>';
-    echo 'body {';
-    echo '    font-family: Arial, sans-serif;';
-    echo '    background-color: #a3e4d7;';
-    echo '    margin: 0;';
-    echo '    padding: 0;';
-    echo '}';
-    echo '.container {';
-    echo '    max-width: 800px;';
-    echo '    margin: 50px auto;';
-    echo '    background-color: #ffffff;';
-    echo '    border-radius: 10px;';
-    echo '    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);';
-echo '    text-align: center;';
-echo '    overflow: hidden;';
-echo '}';
-echo 'header {';
-echo '    background-color: #4CAF50;';
-echo '    color: white;';
-echo '    padding: 20px;';
-echo '    border-radius: 10px 10px 0 0;';
-echo '}';
-echo '.event-details {';
-echo '    margin: 20px;';
-echo '    padding: 20px;';
-echo '    border-radius: 5px;';
-echo '    background-color: #f9f9f9;';
-echo '}';
-echo '.event img {';
-echo '    max-width: 70%;';
-echo '    height: auto;';
-echo '    border-radius: 5px;';
-echo '    margin-bottom: 10px;';
-echo '}';
-echo '.event-name {';
-echo '    font-size: 24px;';
-echo '    margin-bottom: 10px;';
-echo '}';
-echo '.donate-button {';
-echo '    margin: 20px;';
-echo '    padding: 10px;';
-echo '    background-color: #4CAF50;';
-echo '    color: white;';
-echo '    border: none;';
-echo '    border-radius: 5px;';
-    echo '    cursor: pointer;';
-    echo '}';
-    echo '</style>';
+        // Include your provided styles
+        echo '<style>';
+        echo 'body {';
+        echo '    font-family: Arial, sans-serif;';
+        echo '    background-color: #a3e4d7;';
+        echo '    margin: 0;';
+        echo '    padding: 0;';
+        echo '}';
+        echo '.container {';
+        echo '    max-width: 800px;';
+        echo '    margin: 50px auto;';
+        echo '    background-color: #ffffff;';
+        echo '    border-radius: 10px;';
+        echo '    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);';
+        echo '    text-align: center;';
+        echo '    overflow: hidden;';
+        echo '}';
+        echo 'header {';
+        echo '    background-color: #4CAF50;';
+        echo '    color: white;';
+        echo '    padding: 20px;';
+        echo '    border-radius: 10px 10px 0 0;';
+        echo '}';
+        echo '.event-details {';
+        echo '    margin: 20px;';
+        echo '    padding: 20px;';
+        echo '    border-radius: 5px;';
+        echo '    background-color: #f9f9f9;';
+        echo '}';
+
+        echo '.event-details img {';
+        echo '    max-width: 50%;';  // Adjust the max-width property as needed
+        echo '    height: 40%;';
+        echo '    border-radius: 5px;';
+        echo '    margin-bottom: 10px;';
+        echo '}';
+    
+        echo '.event-name {';
+        echo '    font-size: 24px;';
+        echo '    margin-bottom: 10px;';
+        echo '}';
+        echo '.donate-button {';
+        echo '    margin: 20px;';
+        echo '    padding: 10px;';
+        echo '    background-color: #4CAF50;';
+        echo '    color: white;';
+        echo '    border: none;';
+        echo '    border-radius: 5px;';
+        echo '    cursor: pointer;';
+        echo '}';
+        echo '</style>';
         echo '</head>';
         echo '<body>';
 
@@ -92,7 +94,6 @@ echo '    border-radius: 5px;';
         echo '<img src="events/' . $row['image'] . '" alt="' . $row['title'] . '">';
         echo '<h2 class="event-name">' . $row['title'] . '</h2>';
         echo '<p>' . $row['description'] . '</p>';
-        echo '<p>' . $row['details'] . '</p>';
         // Add any other event details you want to display
         echo '</div>';
 

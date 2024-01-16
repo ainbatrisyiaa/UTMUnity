@@ -58,8 +58,8 @@ $result = $conn->query($sql);
         }
 
         .event img {
-            max-width: 70%;
-            height: auto;
+            max-width: 50%;
+            height: 40%;
             border-radius: 5px;
             margin-bottom: 10px;
         }
