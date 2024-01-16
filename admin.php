@@ -42,7 +42,7 @@
     </header>
 
     <nav>
-        <a href="#">Events</a>
+        <a href="adding_event.php">Events</a>
         <a href="admin_page.php">Donation</a>
         <a href="orgFeedback.php">Feedback</a>
         <!-- Add more navigation links as needed -->
