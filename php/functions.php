@@ -50,3 +50,25 @@
 		$data = $result->fetch_all(MYSQLI_ASSOC);
 		return $data;
 	}
+	
+	// functions.php
+
+	function addEvent($title, $category, $description, $details, $image)
+	{
+		$mysqli = dbConnect();
+    
+		$stmt = $mysqli->prepare("INSERT INTO events_2 (title, category, description, details, image) VALUES (?, ?, ?, ?, ?)");
+		$stmt->bind_param("sssss", $title, $category, $description, $details, $image);
+    
+		return $stmt->execute();
+	}
+
+	function addEventToCalendar($title, $start_date, $start_time, $end_date, $end_time)
+{
+    $mysqli = dbConnect();
+
+    $stmt = $mysqli->prepare("INSERT INTO calendar_event_master (event_name, event_start_date, event_start_time, event_end_date, event_end_time) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $title, $start_date, $start_time, $end_date, $end_time);
+
+    return $stmt->execute();
+}
