@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
                 // Profile updated successfully
-                header("location: studentprofile.php");
+                header("location: staffprofile.php");
                 exit;
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
