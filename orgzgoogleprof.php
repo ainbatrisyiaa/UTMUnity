@@ -29,9 +29,8 @@ if (mysqli_num_rows($get_user) > 0) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $full_name = mysqli_real_escape_string($db_connection, $_POST['full_name']);
     $phone_number = mysqli_real_escape_string($db_connection, $_POST['phone_number']);
-    $studentstaffid = mysqli_real_escape_string($db_connection, $_POST['studentstaffid']);
 
-    $update_query = "UPDATE `google` SET `full_name`='$full_name', `phone_number`='$phone_number', `studentstaffid`='$studentstaffid' WHERE `oauth_id`='$id'";
+    $update_query = "UPDATE `google` SET `full_name`='$full_name', `phone_number`='$phone_number' WHERE `oauth_id`='$id'";
     $update_result = mysqli_query($db_connection, $update_query);
 
     if ($update_result) {

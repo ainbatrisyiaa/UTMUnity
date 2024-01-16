@@ -174,8 +174,9 @@ $conn->close();
         <a class="active" href="#home"><i class="fa fa-home"></i> Home</a>
         <a href="#about"><i class="fa fa-info-circle"></i> About</a>
         <a href="news.php"><i class="fa fa-newspaper-o"></i> News</a>
-        <a href="#contact"><i class="fa fa-envelope"></i> Contact</a>
-        <a href="orgzprofile.php"><i class="fa fa-user"></i> Profile</a>
+        <a href="#contact"><i class="fa fa-envelope"></i> Contact</a>;
+        <a href="reset-password.php"><i class="fa fa-info-circle"></i> Reset Password</a>;
+        <a href="orgzprofile.php"><i class="fa fa-user"></i> Profile</a>;
         <a href="googlelogout.php"><i class="fa fa-sign-out"></i> Logout</a>
     </div>
 
