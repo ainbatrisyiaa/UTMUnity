@@ -9,6 +9,9 @@
         body {
             font-family: 'Arial', sans-serif;
             background-image: url('bg.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             background-color: #a3e4d7;
             margin: 0;
             padding: 0;
