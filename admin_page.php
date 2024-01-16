@@ -21,6 +21,33 @@
             height: 100vh;
         }
 
+        .navbar {
+            width: 100%;
+            background-color: #a3e4d7;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+        }
+
+        .logo {
+            float: left;
+            padding: 15px;
+        }
+
+        .logo img {
+            height: 50px; /* Adjust the height as needed */
+            margin-right: 10px;
+        }
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
         .admin-container {
             width: 600px;
             background-color: #ffffff;
@@ -51,6 +78,18 @@
 </head>
 
 <body>
+< <div class="navbar">
+        <div class="logo">
+            <a href="#default">
+                <img id="first-logo" src="utm-logo.png" alt="Logo 1">
+                <img id="second-logo" src="vol-club.png" alt="Logo 2">
+            </a>
+        </div>
+        <a href="orgzFeedback.php">Feedback</a>
+        <a href="admin_page.php">Donate</a>
+        <a href="admin.php">Home</a>
+    </div>
+
     <div class="admin-container">
         <h2>Event List and Total Donation</h2>
         <table>

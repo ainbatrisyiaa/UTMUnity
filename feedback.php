@@ -32,7 +32,7 @@
         <a href="index1.php">Get Involved</a>
         <a href="main_page.php">Donate</a>
         <a href="feedback.php">Feedback</a>
-        <a href="studentprofile.php"><i class="fas fa-user profile-icon"></i></a>
+        <a href="studentgoogleprof.php"><i class="fas fa-user profile-icon"></i></a>
     </div>
 </div>
 

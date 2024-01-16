@@ -182,11 +182,6 @@ if (mysqli_num_rows($get_user) > 0) {
 <!-- Content Section -->
 <div class="content-section">
     <div class="button-wrapper">
-            <!-- Clickable Image 1 -->
-            <a href="events.php">
-                <img src="event-volunteers.jpg" alt="Image 1">
-                <div class="label">Add Events</div>
-            </a>
             <!-- Clickable Image 2 -->
             <a href="orgzdonate.php">
                 <img src="Donate.jpg" alt="Image 2">

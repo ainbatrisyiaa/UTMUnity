@@ -61,7 +61,7 @@
         <h2>Thank You for Your Contribution</h2>
         <p class="thank-you-text"><i>Alone we can do so little; together we can do so much.</i></p>
         <p class="thank-you-text"><strong>                                  – Helen Keller</strong></p>
-        <a href="welcome.php" class="back-to-home">Back to Home</a>
+        <a href="studenthome.php" class="back-to-home">Back to Home</a>
     </div>
 </body>
 

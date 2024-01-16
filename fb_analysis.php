@@ -163,14 +163,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 // Display feedback report
 if (isset($feedbackData)) {
     echo "<h2>Feedback Report for $selectedEventName</h2>";
-    if (isset($feedbackData['responses'][0])) {
-        $numResponses = count($feedbackData['responses'][0]);
-    } else {
-        // Handle the case where the key '0' is not defined
-        $numResponses = 0;
-    }
-    
-    echo "<p>Number of Responses: " . $numResponses . "</p>";
 
     // Download button for Excel file
     echo '<a href="javascript:void(0);" onclick="confirmDownload()">Download Excel</a>';
