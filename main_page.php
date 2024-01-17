@@ -76,10 +76,10 @@ $result = $conn->query($sql);
     // Check if there are events to display
     if ($result->num_rows > 0) {
         // Output data of each row
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             echo '<div class="event">';
             echo '<img src="events/' . $row['image'] . '" alt="' . $row['title'] . '">';
-            // Create a hyperlink to the event details page with id as a parameter
+            // Fix the hyperlink to the event details page
             echo '<h2><a href="event_details.php?id=' . $row['id'] . '">' . $row['title'] . '</a></h2>';
             echo '</div>';
         }
@@ -95,5 +95,3 @@ $result = $conn->query($sql);
 
 </body>
 </html>
-
-

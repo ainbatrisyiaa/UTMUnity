@@ -10,21 +10,15 @@
 		<link rel="stylesheet" href="style.css">
 		
 		<script>
-			
-			function showSuccessPopup() {
-				alert('Registration Successful!');
-				window.location.href = 'index1.php';
-			}
+        function showSuccessPopup() {
+            alert('Registration Successful!');
+            window.location.href = 'index1.php';
+        }
 
-  
-			function handleSubmit(event) {
-    
-				event.preventDefault();
-
-   
-				showSuccessPopup();
-			}
-		</script>
+        function showErrorPopup(msg) {
+            alert('Registration failed: ' + msg);
+        }
+    </script>
 
 	</head>
 	
@@ -32,7 +26,7 @@
 	
 	
 		<section class="container">
-			<header>Registration Form</head>
+			<header>Registration Form</header>
 			<form action="process_form.php" method="post" class="form" onsubmit="handleSubmit(event)">
 				<div class="input-box">
 					<label>Full Name</label>
@@ -52,27 +46,42 @@
 				</div>
 				
 				<div class="input-box event_name">
-					<label>Event Name</label>
-						<div class="select-box">
-							<select name="event_name">
-								<option hidden>Event Name</option>
-								<option>HarmonyQuest: Bridging Cultures Through Volunteerism</option>
-								<option>Beach Cleanup Initiative</option>
-								<option>Planting Trees is Fun</option>
-								<option>EcoCycle: Renewing Communities Through Recycling</option>
-								<option>Senior Center Companion</option>
-								<option>Big Brother/ Big Sister Program</option>
-								<option>Health and Wellness Workshops</option>
-								<option>Career Development Seminars</option>
-								<option>Campus Blood Donation Campaign</option>
-								<option>Community Health Fair</option>
-								<option>Women's Empowerment Workshop</option>
-								<option>Animal Shelter Volunteer Day</option>
-								<option>Sustainable Agriculture Project</option>
-								<option>Clean Water Initiative</option>
-							</select>
-						</div>	
-				</div>
+    <label>Event Name</label>
+    <div class="select-box">
+        <select name="event_name">
+            <option hidden>Event Name</option>
+
+            <?php
+            // Connect to your database (replace placeholders with your actual database credentials)
+            $servername = "localhost";
+            $username = "DevGenius";
+            $password = "UTMUnity67";
+            $dbname = "devgenius";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Fetch events from the database
+            $sql = "SELECT title FROM events_2";
+            $result = $conn->query($sql);
+
+            // Display events in dropdown
+            while ($row = $result->fetch_assoc()) {
+                echo "<option>" . $row['title'] . "</option>";
+            }
+
+            // Close the database connection
+            $conn->close();
+            ?>
+
+        </select>
+    </div>
+</div>
+
 				
 				<div class="participant-box">
 					<label>Participant</label>

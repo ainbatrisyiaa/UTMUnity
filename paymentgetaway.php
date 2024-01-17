@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     try {
         $checkout_session = \Stripe\Checkout\Session::create([
             "mode" => "payment",
-            "success_url" => "http://localhost/UTMUnity/thank_you.php",
-            "cancel_url" => "http://localhost/UTMUnity/thank_you.php",
+            "success_url" => "http://localhost/UTMUnity/thank_you.php?session_id={CHECKOUT_SESSION_ID}",
+            "cancel_url" => "http://localhost/UTMUnity/Donationdetails.php",
             "locale" => "auto",
             "payment_method_types" => ["card","grabpay","fpx","alipay"],
             "line_items" => [

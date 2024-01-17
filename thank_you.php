@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You</title>
     <style>
-           body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #a3e4d7;
             margin: 0;
@@ -40,18 +40,31 @@
             margin-bottom: 20px;
         }
 
-        .back-to-home {
+        .back-to-home,
+        .view-receipt {
             text-decoration: none;
             color: #ffffff;
-            background-color: #2E8B57;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
             display: inline-block;
+            margin-right: 10px;
+        }
+
+        .back-to-home {
+            background-color: #2E8B57;
+        }
+
+        .view-receipt {
+            background-color: #007BFF;
         }
 
         .back-to-home:hover {
             background-color: #CC6640;
+        }
+
+        .view-receipt:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -60,9 +73,10 @@
     <div class="thank-you-container">
         <h2>Thank You for Your Contribution</h2>
         <p class="thank-you-text"><i>Alone we can do so little; together we can do so much.</i></p>
-        <p class="thank-you-text"><strong>                                  – Helen Keller</strong></p>
+        <p class="thank-you-text"><strong>– Helen Keller</strong></p>
         <a href="studenthome.php" class="back-to-home">Back to Home</a>
+        <!-- Add the "View Receipt" link/button -->
+        <a href="receipt.php" class="view-receipt">View Receipt</a>
     </div>
 </body>
-
 </html>
