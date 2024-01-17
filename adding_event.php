@@ -32,8 +32,13 @@
                 <!-- Other event details input fields go here -->
 
                 <div class="input-box">
-                    <label>Category</label>
-                    <input type="text" name="category" placeholder="Enter event category" required />
+                <label>Category</label>
+                <select name="category" required>
+                    <option value="" disabled selected>Please Select One</option>
+                    <option value="UTMVolunteer">Music</option>
+                    <option value="NGO">Sports</option>
+                    <!-- Add more options as needed -->
+                </select>
                 </div>
 
                 <div class="input-box">
