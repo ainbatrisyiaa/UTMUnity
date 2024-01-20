@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -10,21 +9,15 @@
 		<link rel="stylesheet" href="style.css">
 		
 		<script>
-			
-			function showSuccessPopup() {
-				alert('Registration Successful!');
-				window.location.href = 'index1.php';
-			}
+        function showSuccessPopup() {
+            alert('Registration Successful!');
+            window.location.href = 'index1.php';
+        }
 
-  
-			function handleSubmit(event) {
-    
-				event.preventDefault();
-
-   
-				showSuccessPopup();
-			}
-		</script>
+        function showErrorPopup(msg) {
+            alert('Registration failed: ' + msg);
+        }
+    </script>
 
 	</head>
 	
@@ -32,7 +25,7 @@
 	
 	
 		<section class="container">
-			<header>Registration Form</head>
+			<header>Registration Form</header>
 			<form action="process_form.php" method="post" class="form" onsubmit="handleSubmit(event)">
 				<div class="input-box">
 					<label>Full Name</label>
@@ -49,39 +42,6 @@
 					<label>Phone Number</label>
 					<input type="number" name="phone_number" placeholder="Enter phone number" required />
 					</div>
-				</div>
-				
-				
-
-				
-				<div class="participant-box">
-					<label>Participant</label>
-					<div class="participant-option">
-						<div class="participant">
-							<input type="radio" id="check-UTMStudent" name="participant_type"  value="UTM Student" checked />
-							<label for="check-UTMStudent">UTM Student</label>
-						</div>
-						<div class="participant">
-							<input type="radio" id="check-staff" name="participant_type" value="Staff"  />
-							<label for="check-staff">Staff</label>
-						</div>
-						<div class="participant">
-							<input type="radio" id="check-UTMVolunteerClub" name="participant_type" value="UTM Volunteer Club" />
-							<label for="check-UTMVolunteerClub">UTM Volunteer Club</label>
-						</div>
-					</div>
-				</div>
-				
-				<div class="input-box">
-					<label>Student ID (for UTM students only) <br>
-					*Put N/A if not applicable</label>
-					<input type="text" name="student_id" placeholder="Enter ID" required />
-				</div>
-				
-				<div class="input-box">
-					<label>Staff ID (for UTM staffs only) <br>
-					*Put N/A if not applicable</label>
-					<input type="text" name="staff_id" placeholder="Enter ID" required />
 				</div>
 				
 				<div class="input-box event_name">
@@ -120,6 +80,56 @@
         </select>
     </div>
 </div>
+
+				
+				<div class="participant-box">
+					<label>Participant</label>
+					<div class="participant-option">
+						<div class="participant">
+							<input type="radio" id="check-UTMStudent" name="participant_type"  value="UTM Student" checked />
+							<label for="check-UTMStudent">UTM Student</label>
+						</div>
+						<div class="participant">
+							<input type="radio" id="check-staff" name="participant_type" value="Staff"  />
+							<label for="check-staff">Staff</label>
+						</div>
+						<div class="participant">
+							<input type="radio" id="check-UTMVolunteerClub" name="participant_type" value="UTM Volunteer Club" />
+							<label for="check-UTMVolunteerClub">UTM Volunteer Club</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="input-box">
+					<label>Student ID (for UTM students only) <br>
+					*Put N/A if not applicable</label>
+					<input type="text" name="student_id" placeholder="Enter ID" required />
+				</div>
+				
+				<div class="input-box">
+					<label>Staff ID (for UTM staffs only) <br>
+					*Put N/A if not applicable</label>
+					<input type="text" name="staff_id" placeholder="Enter ID" required />
+				</div>
+				
+				<div class="input-box faculty">
+					<label>Faculty</label>
+						<div class="select-box">
+							<select name="faculty">
+								<option hidden>Faculty</option>
+								<option>FKA</option>
+								<option>FKM</option>
+								<option>FKE</option>
+								<option>FABU</option>
+								<option>FSSH</option>
+								<option>FC</option>
+								<option>FKT</option>
+								<option>FS</option>
+								<option>FM</option>
+							</select>
+						</div>	
+				</div>
+				
 				<div class="input-box">
 					<label>Medical Information (Please specify any allergies or medical <br>
 					conditions) <br>
