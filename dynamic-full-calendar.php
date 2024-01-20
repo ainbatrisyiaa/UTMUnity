@@ -107,9 +107,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="deleteEvent()">Delete Event</button>
-                    <button type="button" class="btn btn-primary" onclick="saveEvent()">Save Event</button>
-                </div>
+					<button type="button" class="btn btn-danger" onclick="deleteEvent()">Delete Event</button>
+					<button type="button" class="btn btn-warning" onclick="updateEvent()">Update Event</button>
+					<button type="button" class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+				</div>
+
             </div>
         </div>
     </div>
@@ -228,6 +230,52 @@
         // Show the modal
         $('#event_entry_modal').modal('show');
     }
+	
+	function updateEvent() {
+    var event_id = $('#event_entry_modal').data('event_id');
+    console.log('Event ID:', event_id);
+    var event_name = $("#event_name").val();
+    var event_start_date = $("#event_start_date").val();
+    var event_end_date = $("#event_end_date").val();
+    var event_start_time = $("#event_start_time").val();
+    var event_end_time = $("#event_end_time").val();
+
+    if (event_name == "" || event_start_date == "" || event_end_date == "") {
+        alert("Please enter all required details.");
+        return false;
+    }
+
+    $.ajax({
+        url: "update_event.php",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            event_id: event_id,
+            event_name: event_name,
+            event_start_date: event_start_date,
+            event_end_date: event_end_date,
+            event_start_time: event_start_time,
+            event_end_time: event_end_time
+        },
+        success: function (response) {
+            $('#event_entry_modal').modal('hide');
+            if (response.status == true) {
+                alert(response.msg);
+                // Reload the page to refresh the calendar
+                location.reload();
+            } else {
+                alert(response.msg);
+            }
+        },
+        error: function (xhr, status) {
+            console.log('ajax error = ' + xhr.statusText);
+            alert(xhr.responseText);
+        }
+    });
+
+    return false;
+}
+
 
     function deleteEvent() {
         var event_id = $('#event_entry_modal').data('event_id');

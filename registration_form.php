@@ -51,28 +51,8 @@
 					</div>
 				</div>
 				
-				<div class="input-box event_name">
-					<label>Event Name</label>
-						<div class="select-box">
-							<select name="event_name">
-								<option hidden>Event Name</option>
-								<option>HarmonyQuest: Bridging Cultures Through Volunteerism</option>
-								<option>Beach Cleanup Initiative</option>
-								<option>Planting Trees is Fun</option>
-								<option>EcoCycle: Renewing Communities Through Recycling</option>
-								<option>Senior Center Companion</option>
-								<option>Big Brother/ Big Sister Program</option>
-								<option>Health and Wellness Workshops</option>
-								<option>Career Development Seminars</option>
-								<option>Campus Blood Donation Campaign</option>
-								<option>Community Health Fair</option>
-								<option>Women's Empowerment Workshop</option>
-								<option>Animal Shelter Volunteer Day</option>
-								<option>Sustainable Agriculture Project</option>
-								<option>Clean Water Initiative</option>
-							</select>
-						</div>	
-				</div>
+				
+
 				
 				<div class="participant-box">
 					<label>Participant</label>
@@ -104,24 +84,42 @@
 					<input type="text" name="staff_id" placeholder="Enter ID" required />
 				</div>
 				
-				<div class="input-box faculty">
-					<label>Faculty</label>
-						<div class="select-box">
-							<select name="faculty">
-								<option hidden>Faculty</option>
-								<option>FKA</option>
-								<option>FKM</option>
-								<option>FKE</option>
-								<option>FABU</option>
-								<option>FSSH</option>
-								<option>FC</option>
-								<option>FKT</option>
-								<option>FS</option>
-								<option>FM</option>
-							</select>
-						</div>	
-				</div>
-				
+				<div class="input-box event_name">
+    <label>Event Name</label>
+    <div class="select-box">
+        <select name="event_name">
+            <option hidden>Event Name</option>
+
+            <?php
+            // Connect to your database (replace placeholders with your actual database credentials)
+            $servername = "localhost";
+            $username = "DevGenius";
+            $password = "UTMUnity67";
+            $dbname = "devgenius";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Fetch events from the database
+            $sql = "SELECT title FROM events_2";
+            $result = $conn->query($sql);
+
+            // Display events in dropdown
+            while ($row = $result->fetch_assoc()) {
+                echo "<option>" . $row['title'] . "</option>";
+            }
+
+            // Close the database connection
+            $conn->close();
+            ?>
+
+        </select>
+    </div>
+</div>
 				<div class="input-box">
 					<label>Medical Information (Please specify any allergies or medical <br>
 					conditions) <br>
