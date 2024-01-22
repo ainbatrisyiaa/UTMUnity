@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You</title>
+    <title>Donation Receipt</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #a3e4d7;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
             text-align: center;
             padding-top: 50px;
         }
 
-        .thank-you-container {
+        .receipt-container {
             max-width: 600px;
             margin: 0 auto;
             background-color: #ffffff;
@@ -23,60 +23,46 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
+        h1 {
             color: #8d4004;
             margin-bottom: 10px;
         }
 
-        .thank-you-text {
+        .receipt-text {
             font-size: 18px;
             color: #6C757D;
             margin-bottom: 20px;
         }
 
-        .back-to-home,
-        .view-receipt {
+        .back-to-home {
             text-decoration: none;
             color: #ffffff;
+            background-color: #2E8B57;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
             display: inline-block;
-            margin-right: 10px;
-        }
-
-        .back-to-home {
-            background-color: #2E8B57;
-        }
-
-        .view-receipt {
-            background-color: #007BFF;
+            margin-top: 20px;
         }
 
         .back-to-home:hover {
             background-color: #CC6640;
         }
-
-        .view-receipt:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 
 <body>
-    <div class="thank-you-container">
-        <h2>Thank You for Your Contribution</h2>
-        <p class="thank-you-text"><i>Alone we can do so little; together we can do so much.</i></p>
-        <p class="thank-you-text"><strong>– Helen Keller</strong></p>
-        <a href="welcome.php" class="back-to-home">Back to Home</a>
-        <!-- Add the "View Receipt" link/button -->
-        <a href="receipt.php" class="view-receipt">View Receipt</a>
+    <div class="receipt-container">
+        <h1>Donation Receipt</h1>
+        <p class="receipt-text">Thank you for your generous donation.</p>
+        <p class="receipt-text">Details:</p>
+        <p class="receipt-text">Name: AIN BATRISYIA BINTI NORAZLAN</p>
+        <p class="receipt-text">Email: ain.batrisyia@graduate.utm.my</p>
+        <p class="receipt-text">Donation Amount: $15.00</p>
+        <p class="receipt-text">Event: Planting Tree Is Fun</p>
+        <!-- Add other details as needed -->
+
+        <a href="thank_you.php" class="back-to-home">Back</a>
     </div>
 </body>
 </html>

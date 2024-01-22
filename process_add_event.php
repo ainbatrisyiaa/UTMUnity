@@ -37,6 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Insert event into the calendar_event_master table
             if (addEventToCalendar($title, $formatted_start, $event_start_time, $formatted_end, $event_end_time)) {
                 echo "Event added successfully!";
+                header("Location: view_all_events.php");
+                exit; // Make sure to exit after a header redirect
             } else {
                 echo "Error adding event to the calendar database.";
             }

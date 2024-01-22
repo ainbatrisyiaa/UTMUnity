@@ -35,8 +35,8 @@
                 <label>Category</label>
                 <select name="category" required>
                     <option value="" disabled selected>Please Select One</option>
-                    <option value="UTMVolunteer">Music</option>
-                    <option value="NGO">Sports</option>
+                    <option value="UTMVolunteer">UTMVolunteer</option>
+                    <option value="NGO">NGO</option>
                     <!-- Add more options as needed -->
                 </select>
                 </div>
